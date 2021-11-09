@@ -1,0 +1,65 @@
+.root { -fx-background-color: transparent; }
+#MainBackground {
+    -fx-background-image: url("Images/MainBackground.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#Scoreboard {
+    -fx-background-image: url("Images/Buttons/Scoreboard.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#Scoreboard:hover{
+    -fx-background-image: url("Images/Buttons/ScoreboardHover.png");
+}
+#NewGame{
+    -fx-background-image: url("Images/Buttons/NewGame.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#NewGame:hover{
+    -fx-background-image: url("Images/Buttons/NewGameHover.png");
+}
+#PreviousGame {
+    -fx-background-image: url("Images/Buttons/PreviousGame.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#PreviousGame:hover,clicked{
+    -fx-background-image: url("Images/Buttons/PreviousGameHover.png");
+}
+#Settings {
+    -fx-background-image: url("Images/Buttons/Settings.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#Settings:hover {
+    -fx-background-image: url("Images/Buttons/SettingsHover.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#Exit {
+    -fx-background-image: url("Images/Buttons/Exit.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#Exit:hover,clicked {
+    -fx-background-image: url("Images/Buttons/ExitHover.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#LineOne {
+    -fx-background-image: url("Images/Lines/LineOne.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

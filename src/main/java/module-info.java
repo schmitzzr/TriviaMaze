@@ -1,8 +1,8 @@
-module com.example.triviamaze {
+module com.triviamaze {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.triviamaze to javafx.fxml;
-    exports com.example.triviamaze;
+    opens com.triviamaze to javafx.fxml;
+    exports com.triviamaze;
 }

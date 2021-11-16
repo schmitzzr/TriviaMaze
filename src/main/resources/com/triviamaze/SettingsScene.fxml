@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="730" prefWidth="1300" stylesheets="@SettingsScene.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.SettingsSceneController">
+    <children>
+        <Pane fx:id="SceneBackground" prefHeight="730.0" prefWidth="1300.0">
+         <children>
+            <Button fx:id="BackButton" onAction="#returnToMainMenu" layoutX="24.0" layoutY="28.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="144.0" text="Back" />
+         </children></Pane>
+    </children>
+</VBox>

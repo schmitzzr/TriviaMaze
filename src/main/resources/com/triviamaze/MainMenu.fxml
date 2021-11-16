@@ -12,7 +12,7 @@
             <Button fx:id="NewGame" layoutX="460.0" layoutY="372.0" mnemonicParsing="false" onAction="#startGame" prefHeight="118.0" prefWidth="380.0" />
             <Button fx:id="PreviousGame" layoutX="460.0" layoutY="244.0" mnemonicParsing="false" prefHeight="118.0" prefWidth="380.0" />
             <Button fx:id="Exit" layoutX="1180.0" layoutY="580.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="90.0" prefWidth="90.0" />
-            <Button fx:id="Settings" layoutX="1180.0" layoutY="480.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" />
+            <Button fx:id="Settings" layoutX="1180.0" layoutY="480.0" mnemonicParsing="false" onAction="#settingsButtonClicked" prefHeight="90.0" prefWidth="90.0" />
 
          </children></Pane>
    </children>

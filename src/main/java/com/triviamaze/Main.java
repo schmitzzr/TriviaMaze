@@ -29,7 +29,6 @@ public class Main extends Application {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Override
-    @FXML
     public void start(final Stage primaryStage) throws IOException {
         primaryStage.setTitle("Trivia Maze");
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainMenu.fxml"));

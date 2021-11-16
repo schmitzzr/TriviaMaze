@@ -2,74 +2,83 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.7663839629915189" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.GameSceneController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="648.0" prefWidth="882.0">
+<VBox prefHeight="730" prefWidth="1300" stylesheets="@GameScene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.GameSceneController">
+   <children>
+      <Pane fx:id="SceneBackground" prefHeight="730.0" prefWidth="1300.0">
          <children>
-            <Button fx:id="mainMenu" layoutX="14.0" layoutY="645.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="159.0" text="Return to Main Menu" AnchorPane.topAnchor="645.0" />
-         </children></AnchorPane>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="648.0" prefWidth="358.0">
-         <children>
-            <Button fx:id="buttonA" layoutX="32.0" layoutY="306.0" mnemonicParsing="false" onAction="#answerA" text="A">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonB" layoutX="33.0" layoutY="362.0" mnemonicParsing="false" onAction="#answerB" text="B">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonC" layoutX="33.0" layoutY="415.0" mnemonicParsing="false" onAction="#answerC" text="C">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonD" layoutX="32.0" layoutY="470.0" mnemonicParsing="false" onAction="#answerD" text="D">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Label fx:id="labelA" layoutX="95.0" layoutY="306.0" prefHeight="44.0" prefWidth="175.0" text="Answer A" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelB" layoutX="95.0" layoutY="362.0" prefHeight="44.0" prefWidth="175.0" text="Answer B" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelC" layoutX="95.0" layoutY="415.0" prefHeight="44.0" prefWidth="175.0" text="Answer C" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelD" layoutX="95.0" layoutY="470.0" prefHeight="44.0" prefWidth="175.0" text="Answer D" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="87.0" layoutY="27.0" text="Question" underline="true">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </Label>
-            <Label fx:id="questionLabel" layoutX="10.0" layoutY="93.0" prefHeight="173.0" prefWidth="281.0" text="Question goes here" wrapText="true">
-               <font>
-                  <Font name="Baskerville Old Face" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="resultLabel" layoutX="10.0" layoutY="533.0" prefHeight="173.0" prefWidth="281.0" text="Result" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Baskerville Old Face" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-  </items>
-</SplitPane>
+            <Pane prefHeight="730.0" prefWidth="950.0">
+               <children>
+                  <Button fx:id="mainMenu" layoutX="5.0" layoutY="663.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
+               </children>
+            </Pane>
+            <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">
+               <children>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="730.0" prefWidth="350.0">
+                     <children>
+                        <Button fx:id="buttonA" layoutX="42.0" layoutY="316.0" mnemonicParsing="false" onAction="#answerA" text="A">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="buttonB" layoutX="43.0" layoutY="372.0" mnemonicParsing="false" onAction="#answerB" text="B">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="buttonC" layoutX="43.0" layoutY="425.0" mnemonicParsing="false" onAction="#answerC" text="C">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="buttonD" layoutX="42.0" layoutY="480.0" mnemonicParsing="false" onAction="#answerD" text="D">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="labelA" layoutX="105.0" layoutY="316.0" prefHeight="44.0" prefWidth="175.0" text="Answer A" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelB" layoutX="105.0" layoutY="372.0" prefHeight="44.0" prefWidth="175.0" text="Answer B" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelC" layoutX="105.0" layoutY="425.0" prefHeight="44.0" prefWidth="175.0" text="Answer C" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelD" layoutX="105.0" layoutY="480.0" prefHeight="44.0" prefWidth="175.0" text="Answer D" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="97.0" layoutY="37.0" text="Question" underline="true">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="questionLabel" layoutX="20.0" layoutY="116.0" prefHeight="173.0" prefWidth="281.0" text="Question goes here" wrapText="true">
+                           <font>
+                              <Font name="Baskerville Old Face" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="resultLabel" layoutX="20.0" layoutY="543.0" prefHeight="173.0" prefWidth="281.0" text="Result" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Baskerville Old Face" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </Pane>
+         </children></Pane>
+   </children>
+</VBox>

@@ -3,7 +3,6 @@
     -fx-background-image: url("Images/MainBackground.png");
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
 }
 #Scoreboard {
     -fx-background-image: url("Images/Buttons/Scoreboard.png");

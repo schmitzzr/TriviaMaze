@@ -15,7 +15,7 @@ public class SQLCreate {
 
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:questions.db");
+            ds.setUrl("jdbc:sqlite:multipleChoice.db");
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -24,7 +24,7 @@ public class SQLCreate {
         System.out.println("Opened database successfully");
 
         //now create a table
-        String query = "CREATE TABLE IF NOT EXISTS multipleChoice ( " +
+        String query = "CREATE TABLE IF NOT EXISTS questions ( " +
                 "QUESTION TEXT NOT NULL, " +
                 "ID NUMBER NOT NULL," +
                 "ANSWER_A TEXT NOT NULL," +

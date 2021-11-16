@@ -79,6 +79,7 @@ public class GameSceneController {
         buttonB.setDisable(false);
         buttonC.setDisable(false);
         buttonD.setDisable(false);
+        resultLabel.setText("");
 
         labelA.setText(trivia.getAnswerA());
         labelB.setText(trivia.getAnswerB());

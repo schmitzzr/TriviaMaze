@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Trivia {
 
+    private ArrayList<Integer> myListOfIDs = new ArrayList<>();
     private SQLiteDataSource ds;
     private String myQuestion;
     private String myAnswerA;
@@ -16,7 +18,6 @@ public class Trivia {
     private String myAnswerC;
     private String myAnswerD;
     private String myAnswer;
-    private int myID;
 
     Trivia(String theUrl) {
         ds = null;
@@ -33,15 +34,13 @@ public class Trivia {
     public void chooseQuestion() {
         System.out.println("Selecting question...");
 
-        String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+        String query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
         try (Connection conn = ds.getConnection();
              Statement stmt = conn.createStatement()) {
 
             ResultSet rs = stmt.executeQuery(query);
 
-
             myQuestion = rs.getString("QUESTION");
-            //myID = rs.getInt("ID");
             myAnswerA = rs.getString("ANSWER_A");
             myAnswerB = rs.getString("ANSWER_B");
             myAnswerC = rs.getString("ANSWER_C");

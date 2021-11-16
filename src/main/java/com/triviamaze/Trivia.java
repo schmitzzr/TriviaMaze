@@ -33,7 +33,7 @@ public class Trivia {
     public void chooseQuestion() {
         System.out.println("Selecting question...");
 
-        String query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
+        String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try (Connection conn = ds.getConnection();
              Statement stmt = conn.createStatement()) {
 

@@ -10,8 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.sqlite.SQLiteDataSource;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
 
 /**
@@ -21,7 +26,30 @@ public class GameSceneController {
 
     @FXML
     private Label resultLabel;
+    @FXML
+    private Label questionLabel;
+    @FXML
+    private Label labelA;
+    @FXML
+    private Label labelB;
+    @FXML
+    private Label labelC;
+    @FXML
+    private Label labelD;
+    @FXML
+    private Button buttonA;
+    @FXML
+    private Button buttonB;
+    @FXML
+    private Button buttonC;
+    @FXML
+    private Button buttonD;
 
+
+    private final Trivia trivia = new Trivia("jdbc:sqlite:questions.db");
+
+    private String myAnswer;
+    private boolean myResult = true;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -44,23 +72,61 @@ public class GameSceneController {
     }
 
     @FXML
+    private void generateQuestion(final ActionEvent event) {
+        trivia.chooseQuestion();
+
+        buttonA.setDisable(false);
+        buttonB.setDisable(false);
+        buttonC.setDisable(false);
+        buttonD.setDisable(false);
+        resultLabel.setText("");
+
+        labelA.setText(trivia.getAnswerA());
+        labelB.setText(trivia.getAnswerB());
+        labelC.setText(trivia.getAnswerC());
+        labelD.setText(trivia.getAnswerD());
+        questionLabel.setText(trivia.getQuestion());
+        myAnswer = trivia.getAnswer();
+
+    }
+
+    @FXML
     private void answerA(final ActionEvent event) {
-        resultLabel.setText("A was clicked");
+        checkAnswer("A");
     }
 
     @FXML
     private void answerB(final ActionEvent event) {
-        resultLabel.setText("B was clicked");
+        checkAnswer("B");
     }
 
     @FXML
     private void answerC(final ActionEvent event) {
-        resultLabel.setText("C was clicked");
+        checkAnswer("C");
     }
 
     @FXML
     private void answerD(final ActionEvent event) {
-        resultLabel.setText("D was clicked");
+        checkAnswer("D");
+    }
+
+    @FXML
+    private void setAnswerButtonsDisabled() {
+        buttonA.setDisable(true);
+        buttonB.setDisable(true);
+        buttonC.setDisable(true);
+        buttonD.setDisable(true);
+    }
+
+    private void checkAnswer(String theGuess) {
+        if (theGuess.equals(myAnswer)) {
+            resultLabel.setText("Correct!\nYou may continue.");
+            myResult = true;
+        } else {
+            resultLabel.setText("Incorrect!\nThis bridge has broken.");
+            myResult = false;
+        }
+        setAnswerButtonsDisabled();
     }
 
 }

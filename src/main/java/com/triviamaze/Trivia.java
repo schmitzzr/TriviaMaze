@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class Trivia {
 
@@ -17,13 +16,14 @@ public class Trivia {
     private String myAnswerC;
     private String myAnswerD;
     private String myAnswer;
+    private int myID;
 
-    Trivia() {
+    Trivia(String theUrl) {
         ds = null;
 
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:multipleChoice.db");
+            ds.setUrl(theUrl);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -33,7 +33,7 @@ public class Trivia {
     public void chooseQuestion() {
         System.out.println("Selecting question...");
 
-        String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+        String query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
         try (Connection conn = ds.getConnection();
              Statement stmt = conn.createStatement()) {
 
@@ -41,6 +41,7 @@ public class Trivia {
 
 
             myQuestion = rs.getString("QUESTION");
+            //myID = rs.getInt("ID");
             myAnswerA = rs.getString("ANSWER_A");
             myAnswerB = rs.getString("ANSWER_B");
             myAnswerC = rs.getString("ANSWER_C");
@@ -75,5 +76,10 @@ public class Trivia {
     public String getAnswer() {
         return myAnswer;
     }
+
+    public boolean getResult(String theGuess) {
+        return theGuess.equals(myAnswer);
+    }
+
 
 }

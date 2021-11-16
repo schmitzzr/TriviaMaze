@@ -15,13 +15,32 @@ public class SQLCreate {
 
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:multipleChoice.db");
+            ds.setUrl("jdbc:sqlite:questions.db");
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
 
         System.out.println("Opened database successfully");
+
+        //now create a table
+        String query = "CREATE TABLE IF NOT EXISTS multipleChoice ( " +
+                "QUESTION TEXT NOT NULL, " +
+                "ID NUMBER NOT NULL," +
+                "ANSWER_A TEXT NOT NULL," +
+                "ANSWER_B TEXT NOT NULL," +
+                "ANSWER_C TEXT NOT NULL," +
+                "ANSWER_D TEXT NOT NULL," +
+                "ANSWER TEXT NOT NULL )";
+        try ( Connection conn = ds.getConnection();
+              Statement stmt = conn.createStatement() ) {
+            int rv = stmt.executeUpdate( query );
+            System.out.println( "executeUpdate() returned " + rv );
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+        System.out.println( "Created questions table successfully" );
 
         boolean cont = true;
         Scanner input = new Scanner(System.in);
@@ -31,7 +50,7 @@ public class SQLCreate {
 
             System.out.println("Selecting question...");
 
-            String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+            query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
             try (Connection conn = ds.getConnection();
                  Statement stmt = conn.createStatement()) {
 

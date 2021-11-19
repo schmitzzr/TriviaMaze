@@ -46,7 +46,7 @@ public class GameSceneController {
     private Button buttonD;
 
 
-    private final Trivia trivia = new Trivia("jdbc:sqlite:questions.db");
+    private final Trivia trivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
     private String myAnswer;
     private boolean myResult = true;
@@ -75,16 +75,18 @@ public class GameSceneController {
     private void generateQuestion(final ActionEvent event) {
         trivia.chooseQuestion();
 
-        buttonA.setDisable(false);
-        buttonB.setDisable(false);
-        buttonC.setDisable(false);
-        buttonD.setDisable(false);
+        setAnswerButtonsDisabled(false);
         resultLabel.setText("");
 
         labelA.setText(trivia.getAnswerA());
         labelB.setText(trivia.getAnswerB());
         labelC.setText(trivia.getAnswerC());
         labelD.setText(trivia.getAnswerD());
+
+        if (labelC.getText().equals(" ") && labelD.getText().equals(" ")) {  //for true/false questions
+            buttonC.setDisable(true);
+            buttonD.setDisable(true);
+        }
         questionLabel.setText(trivia.getQuestion());
         myAnswer = trivia.getAnswer();
 
@@ -111,11 +113,11 @@ public class GameSceneController {
     }
 
     @FXML
-    private void setAnswerButtonsDisabled() {
-        buttonA.setDisable(true);
-        buttonB.setDisable(true);
-        buttonC.setDisable(true);
-        buttonD.setDisable(true);
+    private void setAnswerButtonsDisabled(boolean theState) {
+        buttonA.setDisable(theState);
+        buttonB.setDisable(theState);
+        buttonC.setDisable(theState);
+        buttonD.setDisable(theState);
     }
 
     private void checkAnswer(String theGuess) {
@@ -126,7 +128,7 @@ public class GameSceneController {
             resultLabel.setText("Incorrect!\nThis bridge has broken.");
             myResult = false;
         }
-        setAnswerButtonsDisabled();
+        setAnswerButtonsDisabled(true);
     }
 
 }

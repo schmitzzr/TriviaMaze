@@ -66,6 +66,7 @@ public class Trivia {
         myAnswerB = fullQuestion.getMyAnswerB();
         myAnswerC = fullQuestion.getMyAnswerC();
         myAnswerD = fullQuestion.getMyAnswerD();
+
         myAnswer = fullQuestion.getMyAnswer();
 
         myQuestionList.remove(0);

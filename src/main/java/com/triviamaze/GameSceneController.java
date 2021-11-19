@@ -82,6 +82,11 @@ public class GameSceneController {
         labelB.setText(trivia.getAnswerB());
         labelC.setText(trivia.getAnswerC());
         labelD.setText(trivia.getAnswerD());
+
+        if (labelC.getText().equals(" ") && labelD.getText().equals(" ")) {  //for true/false questions
+            buttonC.setDisable(true);
+            buttonD.setDisable(true);
+        }
         questionLabel.setText(trivia.getQuestion());
         myAnswer = trivia.getAnswer();
 

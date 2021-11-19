@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Trivia {
 
-    private ArrayList<Integer> myListOfIDs = new ArrayList<>();
+    private final ArrayList<Question> myQuestionList = new ArrayList<>();
     private SQLiteDataSource ds;
     private String myQuestion;
     private String myAnswerA;
@@ -19,7 +20,7 @@ public class Trivia {
     private String myAnswerD;
     private String myAnswer;
 
-    Trivia(String theUrl) {
+    Trivia(String theUrl, String theTable) {
         ds = null;
 
         try {
@@ -29,12 +30,53 @@ public class Trivia {
             e.printStackTrace();
             System.exit(0);
         }
+
+        String query = "SELECT * FROM " + theTable;
+        Question fullQuestion;
+
+        try (Connection conn = ds.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while ( rs.next() ) {
+                myQuestion = rs.getString("QUESTION");
+                myAnswerA = rs.getString("ANSWER_A");
+                myAnswerB = rs.getString("ANSWER_B");
+                myAnswerC = rs.getString("ANSWER_C");
+                myAnswerD = rs.getString("ANSWER_D");
+                myAnswer = rs.getString("ANSWER");
+
+                fullQuestion = new Question(myQuestion, myAnswerA, myAnswerB, myAnswerC, myAnswerD, myAnswer);
+                myQuestionList.add(fullQuestion);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        Collections.shuffle(myQuestionList);
     }
 
     public void chooseQuestion() {
         System.out.println("Selecting question...");
+        Question fullQuestion = myQuestionList.get(0);
+        myQuestion = fullQuestion.getMyQuestion();
+        myAnswerA = fullQuestion.getMyAnswerA();
+        myAnswerB = fullQuestion.getMyAnswerB();
+        myAnswerC = fullQuestion.getMyAnswerC();
+        myAnswerD = fullQuestion.getMyAnswerD();
+        myAnswer = fullQuestion.getMyAnswer();
+
+        myQuestionList.remove(0);
+        myQuestionList.add(fullQuestion);
+    }
+
+    public void chooseMultipleChoiceQuestion() {
+        System.out.println("Selecting question...");
 
         String query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
+
         try (Connection conn = ds.getConnection();
              Statement stmt = conn.createStatement()) {
 

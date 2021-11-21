@@ -7,15 +7,15 @@ public class Bridge {
 		this.vertical=vertical;
 	}
 	public boolean getOpenStatus() {
-		return this.openStatus;
+		return this.openStatus;//return the open status of the bridge.
 	}
 	public boolean isVertical() {
-		return this.isVertical();
+		return this.isVertical();//return true if the bridge is vertical.
 	}
 	public void setOpenStatus(boolean status) {
-		this.openStatus=status;
+		this.openStatus=status;//set the status of the bridge.
 	}
 	public boolean isHorizontal() {
-		return this.horizontal;
+		return this.horizontal;//return true if the bridge is horizontal.
 	}
 }

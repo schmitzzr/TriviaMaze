@@ -1,4 +1,4 @@
-package maze1;
+package com.triviamaze.maze;
 
 public class Player {
 	private int CoordX,CoordY;

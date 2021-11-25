@@ -80,10 +80,10 @@
                            </font>
                         </Label>
                         <Button fx:id="genQuestion" layoutX="117.0" layoutY="691.0" mnemonicParsing="false" onAction="#generateQuestion" text="Generate Question" />
-                        <TextField fx:id="typeAnswerTextField" disable="true" layoutX="35.0" layoutY="520.0" prefHeight="40.0" prefWidth="281.0" />
-                        <Label fx:id="typeAnswerLabel" layoutX="35.0" layoutY="495.0" prefHeight="25.0" prefWidth="128.0" text="Type answer below:" visible="false">
+                        <TextField fx:id="typeAnswerTextField" disable="true" layoutX="35.0" layoutY="520.0" onAction="#shortAnswer" prefHeight="40.0" prefWidth="281.0" />
+                        <Label fx:id="shortAnswerLabel" disable="true" layoutX="35.0" layoutY="487.0" text="Type your answer here:" visible="false">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Label>
                      </children>

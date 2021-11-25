@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.sqlite.SQLiteDataSource;
@@ -17,6 +18,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -44,6 +46,10 @@ public class GameSceneController {
     private Button buttonC;
     @FXML
     private Button buttonD;
+    @FXML
+    private TextField typeAnswerTextField;
+    @FXML
+    private Label shortAnswerLabel;
 
 
     private final Trivia trivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
@@ -72,52 +78,66 @@ public class GameSceneController {
     }
 
     @FXML
-    private void generateQuestion(final ActionEvent event) {
+    private void generateQuestion() {
         trivia.chooseQuestion();
 
         setAnswerButtonsDisabled(false);
         resultLabel.setText("");
 
-        labelA.setText(trivia.getAnswerA());
-        labelB.setText(trivia.getAnswerB());
-        labelC.setText(trivia.getAnswerC());
-        labelD.setText(trivia.getAnswerD());
+        String ansA = trivia.getAnswerA();
+        String ansB = trivia.getAnswerB();
+        String ansC = trivia.getAnswerC();
+        String ansD = trivia.getAnswerD();
+        myAnswer = trivia.getAnswer();
 
-        if (labelC.getText().equals(" ") && labelD.getText().equals(" ")) {  //for true/false questions
-            buttonC.setDisable(true);
-            buttonD.setDisable(true);
+        if (ansA.equals("-Fill-")) { // for short answer questions
+            setAnswerButtonsDisabled(true);
+            typeAnswerTextField.setDisable(false);
+            shortAnswerLabel.setVisible(true);
+            shortAnswerLabel.setDisable(false);
+            labelA.setText("");
+            labelB.setText("");
+            labelC.setText("");
+            labelD.setText("");
+        } else {
+            labelA.setText(ansA);
+            labelB.setText(ansB);
+            labelC.setText(ansC);
+            labelD.setText(ansD);
+
+            if (labelC.getText().equals(" ") && labelD.getText().equals(" ")) {  //for true/false questions
+                buttonC.setDisable(true);
+                buttonD.setDisable(true);
+            }
         }
         questionLabel.setText(trivia.getQuestion());
-        myAnswer = trivia.getAnswer();
 
     }
 
     @FXML
-    private void answerA(final ActionEvent event) {
+    private void answerA() {
         checkAnswer("A");
     }
 
     @FXML
-    private void answerB(final ActionEvent event) {
+    private void answerB() {
         checkAnswer("B");
     }
 
     @FXML
-    private void answerC(final ActionEvent event) {
+    private void answerC() {
         checkAnswer("C");
     }
 
     @FXML
-    private void answerD(final ActionEvent event) {
+    private void answerD() {
         checkAnswer("D");
     }
 
     @FXML
-    private void setAnswerButtonsDisabled(boolean theState) {
-        buttonA.setDisable(theState);
-        buttonB.setDisable(theState);
-        buttonC.setDisable(theState);
-        buttonD.setDisable(theState);
+    private void shortAnswer() {
+        String answer = typeAnswerTextField.getText().toLowerCase();
+        checkShortAnswer(answer);
     }
 
     private void checkAnswer(String theGuess) {
@@ -129,6 +149,26 @@ public class GameSceneController {
             myResult = false;
         }
         setAnswerButtonsDisabled(true);
+    }
+
+    private void checkShortAnswer(String theGuess) {
+        checkAnswer(theGuess);
+        typeAnswerTextField.setDisable(true);
+        typeAnswerTextField.setText("");
+        shortAnswerLabel.setVisible(false);
+        shortAnswerLabel.setDisable(true);
+    }
+
+    @FXML
+    private void setAnswerButtonsDisabled(boolean theState) {
+        buttonA.setDisable(theState);
+        buttonB.setDisable(theState);
+        buttonC.setDisable(theState);
+        buttonD.setDisable(theState);
+    }
+
+    public boolean getMyResult() {
+        return myResult;
     }
 
 }

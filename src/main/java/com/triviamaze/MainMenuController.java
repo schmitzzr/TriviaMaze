@@ -34,7 +34,6 @@ public class MainMenuController {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
-        stage.setScene(scene);
         stage.show();
     }
 
@@ -45,6 +44,15 @@ public class MainMenuController {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/SettingsScene.css")).toExternalForm());
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
+        stage.show();
+    }
+
+    public void helpButtonClicked(final ActionEvent theEvent) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpScene.fxml")));
+        stage = (Stage)((Node)theEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/HelpScene.css")).toExternalForm());
+        scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
     }

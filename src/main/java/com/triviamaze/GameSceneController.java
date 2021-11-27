@@ -11,14 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.sqlite.SQLiteDataSource;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -52,7 +46,7 @@ public class GameSceneController {
     private Label shortAnswerLabel;
 
 
-    private final Trivia trivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
+    private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
     private String myAnswer;
     private boolean myResult = true;
@@ -79,16 +73,16 @@ public class GameSceneController {
 
     @FXML
     private void generateQuestion() {
-        trivia.chooseQuestion();
+        myTrivia.chooseQuestion();
 
         setAnswerButtonsDisabled(false);
         resultLabel.setText("");
 
-        String ansA = trivia.getAnswerA();
-        String ansB = trivia.getAnswerB();
-        String ansC = trivia.getAnswerC();
-        String ansD = trivia.getAnswerD();
-        myAnswer = trivia.getAnswer();
+        String ansA = myTrivia.getAnswerA();
+        String ansB = myTrivia.getAnswerB();
+        String ansC = myTrivia.getAnswerC();
+        String ansD = myTrivia.getAnswerD();
+        myAnswer = myTrivia.getAnswer();
 
         if (ansA.equals("-Fill-")) { // for short answer questions
             setAnswerButtonsDisabled(true);
@@ -110,7 +104,7 @@ public class GameSceneController {
                 buttonD.setDisable(true);
             }
         }
-        questionLabel.setText(trivia.getQuestion());
+        questionLabel.setText(myTrivia.getQuestion());
 
     }
 
@@ -140,7 +134,7 @@ public class GameSceneController {
         checkShortAnswer(answer);
     }
 
-    private void checkAnswer(String theGuess) {
+    private void checkAnswer(final String theGuess) {
         if (theGuess.equals(myAnswer)) {
             resultLabel.setText("Correct!\nYou may continue.");
             myResult = true;
@@ -151,7 +145,7 @@ public class GameSceneController {
         setAnswerButtonsDisabled(true);
     }
 
-    private void checkShortAnswer(String theGuess) {
+    private void checkShortAnswer(final String theGuess) {
         checkAnswer(theGuess);
         typeAnswerTextField.setDisable(true);
         typeAnswerTextField.setText("");
@@ -160,7 +154,7 @@ public class GameSceneController {
     }
 
     @FXML
-    private void setAnswerButtonsDisabled(boolean theState) {
+    private void setAnswerButtonsDisabled(final boolean theState) {
         buttonA.setDisable(theState);
         buttonB.setDisable(theState);
         buttonC.setDisable(theState);

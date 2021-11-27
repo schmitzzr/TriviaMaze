@@ -62,3 +62,17 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+#helpButton {
+    -fx-background-image: url("Images/Buttons/helpButton.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#helpButton:hover,clicked {
+    -fx-background-image: url("Images/Buttons/helpButtonHover.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

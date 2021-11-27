@@ -4,3 +4,8 @@
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
 }
+#TriviaPane {
+    -fx-background-image: url("Images/triviaBackground.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}

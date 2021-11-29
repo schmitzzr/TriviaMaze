@@ -12,7 +12,6 @@ import java.util.Collections;
 public class Trivia {
 
     private final ArrayList<Question> myQuestionList = new ArrayList<>();
-    private SQLiteDataSource ds;
     private String myQuestion;
     private String myAnswerA;
     private String myAnswerB;
@@ -21,7 +20,7 @@ public class Trivia {
     private String myAnswer;
 
     Trivia(String theUrl, String theTable) {
-        ds = null;
+        SQLiteDataSource ds = null;
 
         try {
             ds = new SQLiteDataSource();
@@ -71,28 +70,6 @@ public class Trivia {
 
         myQuestionList.remove(0);
         myQuestionList.add(fullQuestion);
-    }
-
-    public void chooseMultipleChoiceQuestion() {
-        System.out.println("Selecting question...");
-
-        String query = "SELECT * FROM multipleChoice ORDER BY RANDOM() LIMIT 1";
-
-        try (Connection conn = ds.getConnection();
-             Statement stmt = conn.createStatement()) {
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            myQuestion = rs.getString("QUESTION");
-            myAnswerA = rs.getString("ANSWER_A");
-            myAnswerB = rs.getString("ANSWER_B");
-            myAnswerC = rs.getString("ANSWER_C");
-            myAnswerD = rs.getString("ANSWER_D");
-            myAnswer = rs.getString("ANSWER");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
     }
 
     public String getQuestion() {

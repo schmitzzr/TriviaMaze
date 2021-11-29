@@ -14,10 +14,14 @@
          <children>
             <Pane prefHeight="730.0" prefWidth="950.0">
                <children>
-                  <Button fx:id="mainMenu" layoutX="5.0" layoutY="663.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
-                  <Button fx:id="exitButton" layoutX="175.0" layoutY="663.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="58.0" prefWidth="101.0" text="Exit" />
-                  <Button layoutX="307.0" layoutY="663.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Help" />
-                  <Button layoutX="439.0" layoutY="663.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Settings" />
+                  <Button fx:id="mainMenu" layoutX="690.0" layoutY="590.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
+                  <Button fx:id="exitButton" layoutX="727.0" layoutY="663.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="58.0" prefWidth="101.0" text="Exit" />
+                  <Button layoutX="835.0" layoutY="590.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Help" />
+                  <Button layoutX="835.0" layoutY="663.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Settings" />
+                  <Button fx:id="WestBridge" layoutX="206.0" layoutY="324.0" mnemonicParsing="false" text="OPEN" onAction="#WestClick" />
+                  <Button fx:id="SouthBridge" layoutX="678.0" layoutY="324.0" mnemonicParsing="false" text="OPEN" onAction="#SouthClick" />
+                  <Button fx:id="NorthBridge" layoutX="434.0" layoutY="115.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="81.0" text="OPEN" onAction="#NorthClick" />
+                  <Button fx:id="EastBridge" layoutX="435.0" layoutY="441.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="81.0" text="OPEN" onAction="#EastClick"/>
                </children>
             </Pane>
             <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">

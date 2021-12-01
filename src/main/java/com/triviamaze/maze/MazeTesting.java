@@ -7,46 +7,50 @@ public class MazeTesting {
     public static void main(String[] args) {
 
         Maze maze = new Maze(4, 4, 0, 0, 3, 3);
-        Room[][] mazeArray = maze.getRooms();
-        Player player = maze.getPlayer();
 
-//        for (int i = 0; i < 4; i++) {
-//            System.out.println(Arrays.toString(mazeArray[i]));
-//        }
-
-        System.out.println("\n------------------------------------\n");
-
-        Room room = maze.getRoom(0,0);
-        System.out.println(room);
-
-        room.getMyBridgeE().setStatus(true);
-
-        System.out.println("After opening east bridge:\n" + room);
-
-        room.getMyBridgeW().setStatus(false);
-
-        System.out.println("After breaking west bridge:\n" + room);
-
-        System.out.println(player);
+        System.out.println("Current room: \n" + maze.getMyCurrentRoom());
 
         //Move right twice
-        player.moveEast();
-        player.moveEast();
-        System.out.println("Moving player east 2 times -> " + player);
+        maze.moveLocation(Direction.EAST);
 
-        //Move down thrice
-        player.moveSouth();
-        player.moveSouth();
-        player.moveSouth();
-        System.out.println("Moving player south 3 times -> " + player);
+        System.out.println("Attempting to move player east on unsolved bridge: \n" + maze.getMyCurrentRoom());
 
-        System.out.println("Has the player reached the end?: " + maze.isAtEnd());
+        //Breaking south bridge
+        maze.breakOrSolveBridge(Direction.SOUTH, false);
 
-        player.moveEast();
-        System.out.println("Moving player east 1 time(s) -> " + player);
+        System.out.println("Breaking bridge south -> " + maze.getMyCurrentRoom());
 
-        System.out.println("Has the player reached the end?: " + maze.isAtEnd());
+        // attempting to cross south bridge
+        maze.moveLocation(Direction.SOUTH);
+        System.out.println("Attempting to move south -> " + maze.getMyCurrentRoom());
 
+
+        //Fixing and moving across east bridge
+        maze.breakOrSolveBridge(Direction.EAST, true);
+        System.out.println("Opening bridge east -> " + maze.getMyCurrentRoom());
+        maze.moveLocation(Direction.EAST);
+        System.out.println("Crossing bridge east -> " + maze.getMyCurrentRoom());
+
+        //Fixing and moving across north bridge
+        maze.breakOrSolveBridge(Direction.SOUTH, true);
+        maze.moveLocation(Direction.SOUTH);
+        System.out.println("Crossing bridge south -> " + maze.getMyCurrentRoom());
+
+        //Fixing and moving across west bridge
+        maze.breakOrSolveBridge(Direction.WEST, true);
+        maze.moveLocation(Direction.WEST);
+        System.out.println("Crossing bridge west -> " + maze.getMyCurrentRoom());
+
+        //Breaking all bridges in room
+        System.out.println("Possible to continue?: " + maze.checkAbilityToContinue() + "\n");
+
+        maze.breakOrSolveBridge(Direction.EAST, false);
+        maze.breakOrSolveBridge(Direction.SOUTH, false);
+        //maze.breakOrSolveBridge(Direction.WEST, false);
+
+        System.out.println("After breaking all bridges:\n" + maze.getMyCurrentRoom());
+
+        System.out.println("Possible to continue?: " + maze.checkAbilityToContinue());
 
     }
 }

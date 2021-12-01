@@ -31,13 +31,14 @@ public class Player {
 		myRow++;
 	}
 
-	public void setRow(int theRow) {
+	public void setPosition(int theRow, int theColumn) {
 		//setter of X.
 		this.myRow = theRow;
+		this.myColumn = theColumn;
 	}
 	public void setColumn(int theColumn) {
 		//setter of Y.
-		this.myColumn = theColumn;
+
 	}
 
 	public String toString() {

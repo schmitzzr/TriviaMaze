@@ -53,7 +53,7 @@ public class Maze {
 		return x>=0 && y>=0 && x < this.myRooms.length && y < this.myRooms[0].length;
 	}
 
-	public Room getRoom(int theColumn,int theRow) {
+	public Room getRoom(final int theColumn, final int theRow) {
 		if(this.isPositionValid(theRow, theColumn))
 			return this.myRooms[theRow][theColumn];//return the room at index x,y
 		return null;//return null if the position is invalid.
@@ -63,7 +63,7 @@ public class Maze {
 		return myCurrentRoom;
 	}
 
-	public void moveLocation(Direction theDirection) {
+	public void moveLocation(final Direction theDirection) {
 		switch(theDirection) {
 			case EAST -> {
 				if (myCurrentRoom.getMyBridgeE().getQuestionStatus())
@@ -85,7 +85,7 @@ public class Maze {
 		}
 	}
 
-	public void breakOrSolveBridge(Direction theDirection, boolean theStatus) {
+	public void breakOrSolveBridge(final Direction theDirection, final boolean theStatus) {
 
 		Room adjacentRoom;
 
@@ -114,7 +114,7 @@ public class Maze {
 		}
 	}
 
-	public void setMyCurrentRoom(Room theCurrentRoom) {
+	public void setMyCurrentRoom(final Room theCurrentRoom) {
 		myCurrentRoom = theCurrentRoom;
 	}
 

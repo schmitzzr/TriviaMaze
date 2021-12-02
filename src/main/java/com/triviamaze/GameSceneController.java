@@ -1,8 +1,7 @@
 package com.triviamaze;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.css.PseudoClass;
+import com.triviamaze.maze.Direction;
+import com.triviamaze.maze.Maze;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -27,41 +25,28 @@ public class GameSceneController {
 
 
     @FXML
-    private Label resultLabel;
+    private Label resultLabel, questionLabel, shortAnswerLabel;
     @FXML
-    private Label questionLabel;
+    private Label labelA, labelB, labelC, labelD;
     @FXML
-    private Label labelA;
-    @FXML
-    private Label labelB;
-    @FXML
-    private Label labelC;
-    @FXML
-    private Label labelD;
-    @FXML
-    private Button buttonA;
-    @FXML
-    private Button buttonB;
-    @FXML
-    private Button buttonC;
-    @FXML
-    private Button buttonD;
+    private Button buttonA, buttonB, buttonC, buttonD;
     @FXML
     private TextField typeAnswerTextField;
-    @FXML
-    private Label shortAnswerLabel;
 
     @FXML
     private Button EastBridge,NorthBridge,WestBridge,SouthBridge;
 
 
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
+    private final Maze myMaze = new Maze(4,4,0,0,3,3);
+
 
     private String myAnswer;
     private boolean myResult = true;
     private Stage stage;
     private Scene scene;
     private Parent root;
+
 
     public enum State {
             OPEN("open"),
@@ -155,7 +140,7 @@ public class GameSceneController {
             generateQuestion();
             NorthBridge.setText(String.valueOf(State.QUESTION));
         } else if (NorthBridge.getText().equals(String.valueOf(State.UNLOCKED))){
-            //next room
+            myMaze.moveLocation(Direction.NORTH);
         }
     }
     @FXML

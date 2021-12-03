@@ -1,10 +1,11 @@
 module com.triviamaze {
-    requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires org.xerial.sqlitejdbc;
     requires org.junit.jupiter.api;
-
+    requires junit;
+    requires javafx.controls;
+    requires org.junit.platform.commons;
+    requires org.apiguardian.api;
 
     opens com.triviamaze to javafx.fxml;
     exports com.triviamaze;

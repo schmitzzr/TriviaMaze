@@ -3,7 +3,7 @@ package com.triviamaze.maze;
 public class Maze {
 
 	Room[][] myRooms;
-	Player myPlayer;
+	//Player myPlayer;
 	Room myCurrentRoom;
 
 	int myEndRow, myEndColumn;
@@ -36,12 +36,12 @@ public class Maze {
 			myEndRow = theEndRow;
 			myEndColumn = theEndColumn;
 		}
-		myPlayer = new Player(theStartRow, theStartColumn);
+		//myPlayer = new Player(theStartRow, theStartColumn);
 	}
 
 	public boolean isAtEnd() {
 		//if the player is at the end of the maze,return true,else return false.
-		return myPlayer.getRow()== myEndRow && myPlayer.getColumn()== myEndColumn;
+		return myCurrentRoom.getMyRow() == myEndRow && myCurrentRoom.getMyColumn()== myEndColumn;
 	}
 
 //	public Player getPlayer() {
@@ -114,8 +114,8 @@ public class Maze {
 		}
 	}
 
-	public void setMyCurrentRoom(final Room theCurrentRoom) {
-		myCurrentRoom = theCurrentRoom;
+	public void setMyCurrentRoom(int theRow, int theColumn) {
+		myCurrentRoom = myRooms[theRow][theColumn];
 	}
 
 	public boolean checkAbilityToContinue() {

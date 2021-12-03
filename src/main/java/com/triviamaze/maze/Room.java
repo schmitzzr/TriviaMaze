@@ -24,6 +24,24 @@ public class Room {
 		return this.myColumn;
 	}
 
+	public void setBridgeStatus(Direction theDirection, boolean theStatus) {
+		switch(theDirection) {
+			case NORTH -> {
+				myBridgeN.setStatus(theStatus);
+			}
+			case EAST -> {
+				myBridgeE.setStatus(theStatus);
+			}
+			case WEST -> {
+				myBridgeW.setStatus(theStatus);
+			}
+			case SOUTH -> {
+				myBridgeS.setStatus(theStatus);
+			}
+		}
+	}
+
+
 	public Bridge getMyBridgeN() {
 		return this.myBridgeN;
 	}

@@ -25,14 +25,6 @@ public class Bridge {
 		return this.openStatus;//return the open status of the bridge.
 	}
 
-	public boolean isVertical() {
-		return myVertical;//return true if the bridge is vertical.
-	}
-
-	public boolean isHorizontal() {
-		return myHorizontal;//return true if the bridge is horizontal.
-	}
-
 	public String toString() {
 		String orientation;
 		if (myVertical) {

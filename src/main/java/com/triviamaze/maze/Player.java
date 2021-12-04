@@ -1,48 +1,25 @@
 package com.triviamaze.maze;
 
 public class Player {
-	private int myRow, myColumn;
-	public Player(int theRow,int theColumn) {
-		this.myRow = theRow;
-		this.myColumn = theColumn;
+	private int CoordX,CoordY;
+	public Player(int x,int y) {
+		this.CoordX=x;
+		this.CoordY=y;
 	}
-	public int getRow() {
+	public int getX() {
 		//getter of X.
-		return this.myRow;
+		return this.CoordX;
 	}
-	public int getColumn() {
+	public int getY() {
 		//getter of Y.
-		return this.myColumn;
+		return this.CoordY;
 	}
-
-	public void moveEast() {
-		myColumn++;
-	}
-
-	public void moveWest() {
-		myColumn--;
-	}
-
-	public void moveNorth() {
-		myRow--;
-	}
-
-	public void moveSouth() {
-		myRow++;
-	}
-
-	public void setPosition(int theRow, int theColumn) {
+	public void setX(int x) {
 		//setter of X.
-		this.myRow = theRow;
-		this.myColumn = theColumn;
+		this.CoordX=x;
 	}
-	public void setColumn(int theColumn) {
+	public void setY(int y) {
 		//setter of Y.
-
+		this.CoordY=y;
 	}
-
-	public String toString() {
-		return "Current player position: (" + myRow + ", " + myColumn + ")";
-	}
-
 }

@@ -1,71 +1,37 @@
 package com.triviamaze.maze;
 
 public class Room {
-
-	private final int myRow, myColumn;
-
-	private final Bridge myBridgeN, myBridgeS, myBridgeE, myBridgeW;
-
-	public Room(int theRow,int theColumn) {
-		this.myRow =theRow;
-		this.myColumn =theColumn;
+	int CoordX,CoordY;
+	Bridge bridgeN,bridgeS,bridgeE,bridgeW;
+	public Room(int CoordX,int CoordY) {
+		this.CoordX=CoordX;
+		this.CoordY=CoordY;
 		//initial four bridge of the room.
-		this.myBridgeN =new Bridge(true,false);
-		this.myBridgeS =new Bridge(true,false);
-		this.myBridgeE =new Bridge(false,true);
-		this.myBridgeW =new Bridge(false,true);
+		this.bridgeN=new Bridge();
+		this.bridgeS=new Bridge();
+		this.bridgeE=new Bridge();
+		this.bridgeW=new Bridge();
 	}
-
-	public int getMyRow() {
-		return this.myRow;
+	public int getCoordX() {
+		return this.CoordX;
 	}
-
-	public int getMyColumn() {
-		return this.myColumn;
+	public int getCoordY() {
+		return this.CoordY;
 	}
-
-	public void setBridgeStatus(Direction theDirection, boolean theStatus) {
-		switch(theDirection) {
-			case NORTH -> {
-				myBridgeN.setStatus(theStatus);
-			}
-			case EAST -> {
-				myBridgeE.setStatus(theStatus);
-			}
-			case WEST -> {
-				myBridgeW.setStatus(theStatus);
-			}
-			case SOUTH -> {
-				myBridgeS.setStatus(theStatus);
-			}
-		}
+	public Bridge getBridgeN() {
+		//getter of BridgeN
+		return this.bridgeN;
 	}
-
-
-	public Bridge getMyBridgeN() {
-		return this.myBridgeN;
+	public Bridge getBridgeW() {
+		//getter of BridgeW
+		return this.bridgeW;
 	}
-
-	public Bridge getMyBridgeW() {
-		return this.myBridgeW;
+	public Bridge getBridgeE() {
+		//getter of BridgeE
+		return this.bridgeE;
 	}
-
-	public Bridge getMyBridgeE() {
-		return this.myBridgeE;
+	public Bridge getBridgeS() {
+		//getter of BridgeS
+		return this.bridgeS;
 	}
-
-	public Bridge getMyBridgeS() {
-		return this.myBridgeS;
-	}
-
-	public String toString() {
-		String position = "Room position: (" + myRow + ", " + myColumn + ")\n";
-		String bridgeN = "North Bridge: " + myBridgeN;
-		String bridgeE = "East Bridge: " + myBridgeE;
-		String bridgeW = "West Bridge: " + myBridgeW;
-		String bridgeS = "South Bridge: " + myBridgeS;
-
-		return position + bridgeN + bridgeE + bridgeW + bridgeS;
-	}
-
 }

@@ -2,19 +2,9 @@ package com.triviamaze.maze;
 
 public class Bridge {
 
-	private final boolean myVertical;
-	private final boolean myHorizontal;
 	private boolean openStatus = true; // true if the bridge has not been broken
 	private boolean questionStatus; // true if the question has been answered
 
-	public Bridge(boolean vertical,boolean horizontal) {
-		myHorizontal = horizontal;
-		myVertical = vertical;
-	}
-
-	public boolean getQuestionStatus() {
-		return questionStatus;
-	}
 
 	public void setStatus(boolean theStatus) {
 		questionStatus = theStatus;
@@ -25,23 +15,8 @@ public class Bridge {
 		return this.openStatus;//return the open status of the bridge.
 	}
 
-	public boolean isVertical() {
-		return myVertical;//return true if the bridge is vertical.
-	}
-
-	public boolean isHorizontal() {
-		return myHorizontal;//return true if the bridge is horizontal.
-	}
-
-	public String toString() {
-		String orientation;
-		if (myVertical) {
-			orientation = "Vertical";
-		} else {
-			orientation = "Horizontal";
-		}
-
-		return "Orientation: " + orientation + ", Open?: " + openStatus + ", Question answered?: " + questionStatus + "\n";
+	public void setOpenStatus(boolean status) {
+		this.openStatus=status;//set the status of the bridge.
 	}
 
 }

@@ -31,22 +31,20 @@ public class GameSceneController {
     @FXML
     private Button buttonA, buttonB, buttonC, buttonD;
     @FXML
-    private TextField typeAnswerTextField;
+    private TextField typeAnswerTextField, cheatField;
 
     @FXML
-    private Button EastBridge,NorthBridge,WestBridge,SouthBridge;
+    private Button EastBridge = new Button(),NorthBridge = new Button(),WestBridge = new Button(),SouthBridge = new Button();
 
 
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
-    private final Maze myMaze = new Maze(4,4,0,0,3,3);
-
+    private Maze myMaze = new Maze(4,4,0,0,3,3);
 
     private String myAnswer;
-    private boolean myResult = true;
+    private boolean myResult;
     private Stage stage;
     private Scene scene;
     private Parent root;
-
 
     public enum State {
             OPEN("open"),
@@ -59,53 +57,88 @@ public class GameSceneController {
         this.label = label;
     }}
 
+    @FXML
+    public void setMyMaze(Maze theMaze) {
+        myMaze = theMaze;
+        System.out.println("Current room: " + myMaze.getMyCurrentRoom());
+        setBridges();
+    }
+
     //For initialization of bridges.
     @FXML
-    public void setBridges(boolean theNorth,boolean theEast,boolean theWest, boolean theSouth) {
-            NorthBridge.setVisible(theNorth);
-            EastBridge.setVisible(theEast);
-            WestBridge.setVisible(theWest);
-            SouthBridge.setVisible(theSouth);
+    public void setBridges() {
+        NorthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
+        NorthBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
+
+        EastBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus());
+        EastBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus());
+
+        WestBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus());
+        WestBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus());
+
+        SouthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus());
+        SouthBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus());
+
+        if (myMaze.isAtEnd()) {
+            System.out.println("You won!");
+        }
     }
 
     @FXML
     public void unlockBridge() {
+
         if(NorthBridge.getText().equals(String.valueOf(State.QUESTION))) {
             NorthBridge.setText(String.valueOf(State.UNLOCKED));
+            myMaze.breakOrSolveBridge(Direction.NORTH, true);
         }
         if(EastBridge.getText().equals(String.valueOf(State.QUESTION))) {
             EastBridge.setText(String.valueOf(State.UNLOCKED));
+            myMaze.breakOrSolveBridge(Direction.EAST, true);
         }
         if(WestBridge.getText().equals(String.valueOf(State.QUESTION))) {
             WestBridge.setText(String.valueOf(State.UNLOCKED));
+            myMaze.breakOrSolveBridge(Direction.WEST, true);
         }
         if(SouthBridge.getText().equals(String.valueOf(State.QUESTION))) {
             SouthBridge.setText(String.valueOf(State.UNLOCKED));
+            myMaze.breakOrSolveBridge(Direction.SOUTH, true);
         }
     }
+
 
     @FXML
     public void lockBridge() {
         if(NorthBridge.getText().equals(String.valueOf(State.QUESTION))) {
             NorthBridge.setText(String.valueOf(State.LOCKED));
+            myMaze.breakOrSolveBridge(Direction.NORTH, false);
             NorthBridge.setVisible(false);
         }
         if(EastBridge.getText().equals(String.valueOf(State.QUESTION))) {
             EastBridge.setText(String.valueOf(State.LOCKED));
+            myMaze.breakOrSolveBridge(Direction.EAST, false);
             EastBridge.setVisible(false);
         }
         if(WestBridge.getText().equals(String.valueOf(State.QUESTION))) {
             WestBridge.setText(String.valueOf(State.LOCKED));
+            myMaze.breakOrSolveBridge(Direction.WEST, false);
             WestBridge.setVisible(false);
         }
         if(SouthBridge.getText().equals(String.valueOf(State.QUESTION))) {
             SouthBridge.setText(String.valueOf(State.LOCKED));
+            myMaze.breakOrSolveBridge(Direction.SOUTH, false);
             SouthBridge.setVisible(false);
         }
     }
 
-    public void setNorthBridgeState() {
-
+    public void setNorthBridgeState(boolean theState) {
+        if (theState) {
+            SouthBridge.setText(String.valueOf(State.UNLOCKED));
+            myMaze.breakOrSolveBridge(Direction.SOUTH, true);
+        } else {
+            NorthBridge.setText(String.valueOf(State.LOCKED));
+            myMaze.breakOrSolveBridge(Direction.NORTH, false);
+            NorthBridge.setVisible(false);
+        }
     }
     public void setEastBridgeState() {
 
@@ -117,6 +150,20 @@ public class GameSceneController {
 
     }
 
+    private void pauseBridges(boolean theState) {
+        if (myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus()) {
+            NorthBridge.setDisable(theState);
+        }
+        if (myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus()) {
+            EastBridge.setDisable(theState);
+        }
+        if (myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus()) {
+            WestBridge.setDisable(theState);
+        }
+        if (myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus()) {
+            SouthBridge.setDisable(theState);
+        }
+    }
 
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
@@ -136,43 +183,52 @@ public class GameSceneController {
 
     @FXML
     private void NorthClick() {
-        if (NorthBridge.getText().equals(String.valueOf(State.OPEN))) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeN().getQuestionStatus()) {
             generateQuestion();
             NorthBridge.setText(String.valueOf(State.QUESTION));
-        } else if (NorthBridge.getText().equals(String.valueOf(State.UNLOCKED))){
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus()){
             myMaze.moveLocation(Direction.NORTH);
+            setBridges();
+            System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
     @FXML
     private void EastClick() {
-        if (EastBridge.getText().equals(String.valueOf(State.OPEN))) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeE().getQuestionStatus()) {
             generateQuestion();
             EastBridge.setText(String.valueOf(State.QUESTION));
-        } else if (EastBridge.getText().equals(String.valueOf(State.UNLOCKED))){
-            //next room
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus()){
+            myMaze.moveLocation(Direction.EAST);
+            setBridges();
+            System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
     @FXML
     private void WestClick() {
-        if (WestBridge.getText().equals(String.valueOf(State.OPEN))) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeW().getQuestionStatus()) {
             generateQuestion();
             WestBridge.setText(String.valueOf(State.QUESTION));
-        } else if (WestBridge.getText().equals(String.valueOf(State.UNLOCKED))){
-            //next room
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus()){
+            myMaze.moveLocation(Direction.WEST);
+            setBridges();
+            System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
     @FXML
     private void SouthClick() {
-        if (SouthBridge.getText().equals(String.valueOf(State.OPEN))) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeS().getQuestionStatus()) {
             generateQuestion();
             SouthBridge.setText(String.valueOf(State.QUESTION));
-        } else if (SouthBridge.getText().equals(String.valueOf(State.UNLOCKED))){
-            //next room
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus()){
+            myMaze.moveLocation(Direction.SOUTH);
+            setBridges();
+            System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
 
     @FXML
     private void generateQuestion() {
+        pauseBridges(true);
         myTrivia.chooseQuestion();
 
         setAnswerButtonsDisabled(false);
@@ -244,6 +300,7 @@ public class GameSceneController {
             myResult = false;
             lockBridge();
         }
+        pauseBridges(false);
         setAnswerButtonsDisabled(true);
     }
 
@@ -261,6 +318,14 @@ public class GameSceneController {
         buttonB.setDisable(theState);
         buttonC.setDisable(theState);
         buttonD.setDisable(theState);
+    }
+
+    @FXML
+    private void cheatCode() {
+        if (cheatField.getText().equals("WWCD")) {
+            myMaze.setMyCurrentRoom(3,3);
+            setBridges();
+        }
     }
 
     public boolean getMyResult() {

@@ -10,14 +10,14 @@
     -fx-background-repeat: no-repeat;
 }
 
-#WestBridge,#SouthBridge {
+#WestBridge,#EastBridge {
     -fx-text-fill: transparent;
     -fx-background-image: url("Images/horizontal_bridge.png");
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
 }
 
-#EastBridge,#NorthBridge {
+#SouthBridge,#NorthBridge {
     -fx-text-fill: transparent;
     -fx-background-image: url("Images/vertical_bridge.png");
     -fx-background-color: transparent;

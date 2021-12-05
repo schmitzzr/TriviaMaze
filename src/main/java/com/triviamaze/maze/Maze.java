@@ -3,7 +3,6 @@ package com.triviamaze.maze;
 public class Maze {
 
 	Room[][] myRooms;
-	//Player myPlayer;
 	Room myCurrentRoom;
 
 	int myEndRow, myEndColumn;
@@ -36,17 +35,12 @@ public class Maze {
 			myEndRow = theEndRow;
 			myEndColumn = theEndColumn;
 		}
-		//myPlayer = new Player(theStartRow, theStartColumn);
 	}
 
 	public boolean isAtEnd() {
 		//if the player is at the end of the maze,return true,else return false.
 		return myCurrentRoom.getMyRow() == myEndRow && myCurrentRoom.getMyColumn()== myEndColumn;
 	}
-
-//	public Player getPlayer() {
-//		return myPlayer;
-//	}
 
 	public boolean isPositionValid(int x,int y) {
 		//return true if the position is a valid position in the maze.

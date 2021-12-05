@@ -10,10 +10,10 @@ public class Room {
 		this.myRow =theRow;
 		this.myColumn =theColumn;
 		//initial four bridge of the room.
-		this.myBridgeN =new Bridge(true,false);
-		this.myBridgeS =new Bridge(true,false);
-		this.myBridgeE =new Bridge(false,true);
-		this.myBridgeW =new Bridge(false,true);
+		this.myBridgeN = new Bridge();
+		this.myBridgeS = new Bridge();
+		this.myBridgeE = new Bridge();
+		this.myBridgeW = new Bridge();
 	}
 
 	public int getMyRow() {
@@ -26,18 +26,14 @@ public class Room {
 
 	public void setBridgeStatus(Direction theDirection, boolean theStatus) {
 		switch(theDirection) {
-			case NORTH -> {
+			case NORTH ->
 				myBridgeN.setStatus(theStatus);
-			}
-			case EAST -> {
+			case EAST ->
 				myBridgeE.setStatus(theStatus);
-			}
-			case WEST -> {
+			case WEST ->
 				myBridgeW.setStatus(theStatus);
-			}
-			case SOUTH -> {
+			case SOUTH ->
 				myBridgeS.setStatus(theStatus);
-			}
 		}
 	}
 

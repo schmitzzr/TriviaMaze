@@ -3,7 +3,6 @@ package com.triviamaze.maze;
 public class Maze {
 
 	Room[][] myRooms;
-	//Player myPlayer;
 	Room myCurrentRoom;
 
 	int myEndRow, myEndColumn;

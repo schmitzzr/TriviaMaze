@@ -1,5 +1,6 @@
 package com.triviamaze;
 
+import com.triviamaze.maze.Maze;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,8 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
+        GameSceneController gameSceneController = new GameSceneController();
+        gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
     }
 
     public void settingsButtonClicked(final ActionEvent theEvent) throws IOException {

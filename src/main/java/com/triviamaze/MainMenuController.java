@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -38,6 +39,16 @@ public class MainMenuController {
         stage.show();
         GameSceneController gameSceneController = new GameSceneController();
         gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
+    }
+
+    public void loadGame(final ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void settingsButtonClicked(final ActionEvent theEvent) throws IOException {

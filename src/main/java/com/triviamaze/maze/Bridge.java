@@ -1,5 +1,7 @@
 package com.triviamaze.maze;
 
+import java.io.Serializable;
+
 public class Bridge {
 
 	/** true if the bridge is still possible to be crossed, false if the bridge has been broken */

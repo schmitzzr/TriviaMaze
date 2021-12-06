@@ -120,7 +120,6 @@ public class Maze implements Serializable {
 				if (myCurrentRoom.getMyBridgeS().getQuestionStatus())
 					myCurrentRoom = myRooms[myCurrentRoom.getMyRow() + 1][myCurrentRoom.getMyColumn()];
 			}
-			default -> {}
 		}
 	}
 

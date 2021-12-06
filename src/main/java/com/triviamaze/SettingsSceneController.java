@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -20,6 +19,9 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Settings Scene, which includes sound sliders and clearing the scoreboard.
+ */
 public class SettingsSceneController implements Initializable {
 
     @FXML
@@ -34,8 +36,8 @@ public class SettingsSceneController implements Initializable {
     @FXML
     private Slider effectsSlider;
 
-    private int musicVolume;
-    private int effectsVolume;
+    private int myMusicVolume;
+    private int myEffectsVolume;
 
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
@@ -48,38 +50,51 @@ public class SettingsSceneController implements Initializable {
         myStage.show();
     }
 
+    /**
+     * Initializes sound
+     * @param theUrl
+     * @param resourceBundle
+     */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL theUrl, ResourceBundle resourceBundle) {
 
-        musicVolume = (int) musicSlider.getValue();
-        musicPercentLabel.setText(musicVolume + "%");
+        myMusicVolume = (int) musicSlider.getValue();
+        musicPercentLabel.setText(myMusicVolume + "%");
 
-        effectsVolume = (int) effectsSlider.getValue();
-        effectsPercentLabel.setText(effectsVolume + "%");
+        myEffectsVolume = (int) effectsSlider.getValue();
+        effectsPercentLabel.setText(myEffectsVolume + "%");
 
         musicSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                musicVolume = (int) musicSlider.getValue();
-                musicPercentLabel.setText(musicVolume + "%");
+                myMusicVolume = (int) musicSlider.getValue();
+                musicPercentLabel.setText(myMusicVolume + "%");
             }
         });
 
         effectsSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                effectsVolume = (int) effectsSlider.getValue();
-                effectsPercentLabel.setText(effectsVolume + "%");
+                myEffectsVolume = (int) effectsSlider.getValue();
+                effectsPercentLabel.setText(myEffectsVolume + "%");
             }
         });
     }
 
-    public int getMusicVolume() {
-        return musicVolume;
+    /**
+     * Getter for the music volume
+     * @return the music volume
+     */
+    public int getMyMusicVolume() {
+        return myMusicVolume;
     }
 
-    public int getEffectsVolume() {
-        return effectsVolume;
+    /**
+     * Getter for the effects volume
+     * @return the effects volume
+     */
+    public int getMyEffectsVolume() {
+        return myEffectsVolume;
     }
 
 

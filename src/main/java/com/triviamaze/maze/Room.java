@@ -1,5 +1,7 @@
 package com.triviamaze.maze;
 
+import java.io.Serializable;
+
 public class Room {
 
 	/** The row and column of the room's location */
@@ -14,13 +16,13 @@ public class Room {
 	 * @param theColumn the column where the room is set
 	 */
 	public Room(final int theRow, final int theColumn) {
-		this.myRow = theRow;
-		this.myColumn = theColumn;
+		myRow = theRow;
+		myColumn = theColumn;
 		//initializes four bridge of the room.
-		this.myBridgeN = new Bridge();
-		this.myBridgeS = new Bridge();
-		this.myBridgeE = new Bridge();
-		this.myBridgeW = new Bridge();
+		myBridgeN = new Bridge();
+		myBridgeS = new Bridge();
+		myBridgeE = new Bridge();
+		myBridgeW = new Bridge();
 	}
 
 	/**
@@ -28,7 +30,7 @@ public class Room {
 	 * @return the row of the room
 	 */
 	public int getMyRow() {
-		return this.myRow;
+		return myRow;
 	}
 
 	/**
@@ -36,7 +38,7 @@ public class Room {
 	 * @return the column of the room
 	 */
 	public int getMyColumn() {
-		return this.myColumn;
+		return myColumn;
 	}
 
 	/**

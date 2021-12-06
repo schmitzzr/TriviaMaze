@@ -36,12 +36,13 @@ public class GameSceneController {
     @FXML
     private Button EastBridge = new Button(),NorthBridge = new Button(),WestBridge = new Button(),SouthBridge = new Button();
 
-
+    /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
+
+    /** initializes the maze to be used by default */
     private Maze myMaze = new Maze(4,4,0,0,3,3);
 
     private String myAnswer;
-    private boolean myResult;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -58,7 +59,7 @@ public class GameSceneController {
     }}
 
     @FXML
-    public void setMyMaze(Maze theMaze) {
+    public void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
         System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         setBridges();
@@ -130,27 +131,14 @@ public class GameSceneController {
         }
     }
 
-    public void setNorthBridgeState(boolean theState) {
-        if (theState) {
-            SouthBridge.setText(String.valueOf(State.UNLOCKED));
-            myMaze.breakOrSolveBridge(Direction.SOUTH, true);
-        } else {
-            NorthBridge.setText(String.valueOf(State.LOCKED));
-            myMaze.breakOrSolveBridge(Direction.NORTH, false);
-            NorthBridge.setVisible(false);
-        }
-    }
-    public void setEastBridgeState() {
-
-    }
-    public void setWestBridgeState() {
-
-    }
-    public void setSouthBridgeState() {
-
-    }
-
-    private void pauseBridges(boolean theState) {
+    /**
+     * Sets the bridges to be unusable (false) or usable (true).
+     * This is for when the player gets asked the trivia question.
+     * Otherwise, they can continue to click the bridges and cycle through the trivia questions.
+     * Setting this to false re-enables those bridges.
+     * @param theState the usability of the bridges (false if unusable, true otherwise)
+     */
+    private void pauseBridges(final boolean theState) {
         if (myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus()) {
             NorthBridge.setDisable(theState);
         }
@@ -290,20 +278,26 @@ public class GameSceneController {
         checkShortAnswer(answer);
     }
 
+    /**
+     * Checks if the given answer to the question is correct.
+     * @param theGuess the answer to the question
+     */
     private void checkAnswer(final String theGuess) {
         if (theGuess.equals(myAnswer)) {
             resultLabel.setText("Correct!\nYou may continue.");
-            myResult = true;
             unlockBridge();
         } else {
             resultLabel.setText("Incorrect!\nThis bridge has broken.");
-            myResult = false;
             lockBridge();
         }
         pauseBridges(false);
         setAnswerButtonsDisabled(true);
     }
 
+    /**
+     * Checks if the given short answer to the question is correct.
+     * @param theGuess the short answer to the question
+     */
     private void checkShortAnswer(final String theGuess) {
         checkAnswer(theGuess);
         typeAnswerTextField.setDisable(true);
@@ -322,14 +316,14 @@ public class GameSceneController {
 
     @FXML
     private void cheatCode() {
+        if (cheatField.getText().equals("GNQ")) {
+            generateQuestion();
+        }
         if (cheatField.getText().equals("WWCD")) {
             myMaze.setMyCurrentRoom(3,3);
             setBridges();
         }
     }
 
-    public boolean getMyResult() {
-        return myResult;
-    }
 
 }

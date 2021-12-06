@@ -1,27 +1,47 @@
 package com.triviamaze.maze;
 
-public class Maze {
+import java.io.Serializable;
 
-	Room[][] myRooms;
-	Room myCurrentRoom;
+/**
+ * This class contains the
+ */
+public class Maze implements Serializable {
 
-	int myEndRow, myEndColumn;
+	/** 2-D array that stores all the rooms in the maze */
+	private final Room[][] myRooms;
 
-	public Maze(int width, int height, int theStartRow,int theStartColumn,int theEndRow, int theEndColumn) {
-		myRooms = new Room[height][width];
-		for(int i=0;i<height;i++) {
-			for(int j=0;j<width;j++) {
+	/** The current room that the player is in */
+	private Room myCurrentRoom;
+
+	/** The coordinates of the final room */
+	private final int myEndRow, myEndColumn;
+
+	/**
+	 * Constructor for the maze
+	 * @param theWidth the desired number of columns in the maze
+	 * @param theHeight the desired number of rows in the maze
+	 * @param theStartRow the row to start at
+	 * @param theStartColumn the column to start at
+	 * @param theEndRow the row of the final room
+	 * @param theEndColumn the column of the final room
+	 */
+	public Maze(final int theWidth, final int theHeight,
+				final int theStartRow, final int theStartColumn,
+				final int theEndRow, final int theEndColumn) {
+		myRooms = new Room[theHeight][theWidth];
+		for(int i = 0; i < theHeight; i++) {
+			for(int j = 0; j < theWidth; j++) {
 				this.myRooms[i][j]=new Room(i,j);//initial the maze.
 
 				if(i == 0) { // Checks if the room is on the top or bottom edge
 					myRooms[i][j].getMyBridgeN().setStatus(false);
-				} else if (i == height - 1) {
+				} else if (i == theHeight - 1) {
 					myRooms[i][j].getMyBridgeS().setStatus(false);
 				}
 
-				if(j == 0) {
+				if(j == 0) { // Checks if the room is on the left or right edge
 					myRooms[i][j].getMyBridgeW().setStatus(false);
-				} else if (j == width - 1) {
+				} else if (j == theWidth - 1) {
 					myRooms[i][j].getMyBridgeE().setStatus(false);
 				}
 			}
@@ -29,7 +49,7 @@ public class Maze {
 
 		myCurrentRoom = myRooms[theStartRow][theStartColumn];
 
-		if (theEndRow >= height || theEndColumn >= width) {
+		if (theEndRow >= theHeight || theEndColumn >= theWidth) {
 			throw new IndexOutOfBoundsException("Finishing row or column out of bounds");
 		} else {
 			myEndRow = theEndRow;
@@ -37,26 +57,51 @@ public class Maze {
 		}
 	}
 
+	/**
+	 * Checks if the current room is the last room in the maze.
+	 * @return true if the current room is at the end of the maze, else return false
+	 */
 	public boolean isAtEnd() {
-		//if the player is at the end of the maze,return true,else return false.
 		return myCurrentRoom.getMyRow() == myEndRow && myCurrentRoom.getMyColumn()== myEndColumn;
 	}
 
-	public boolean isPositionValid(int x,int y) {
+	/**
+	 * Checks if the inputted coordinates are a valid location in the maze.
+	 * @param theRow the row of the room
+	 * @param theColumn the column of the room
+	 * @return true if the position is valid, else return false
+	 */
+	public boolean isPositionValid(final int theRow, final int theColumn) {
 		//return true if the position is a valid position in the maze.
-		return x>=0 && y>=0 && x < this.myRooms.length && y < this.myRooms[0].length;
+		return theRow>=0 && theColumn>=0 && theRow < this.myRooms.length && theColumn < this.myRooms[0].length;
 	}
 
-	public Room getRoom(final int theColumn, final int theRow) {
+	/**
+	 * Checks if the room coordinates inputted are valid, and then returns the room if so.
+	 * Returns null if it isn't valid.
+	 * @param theRow the row of the room
+	 * @param theColumn the column of the room
+	 * @return the room with the desired coordinates, and null if the coordinates are invalid
+	 */
+	public Room getRoom(final int theRow, final int theColumn) {
 		if(this.isPositionValid(theRow, theColumn))
-			return this.myRooms[theRow][theColumn];//return the room at index x,y
-		return null;//return null if the position is invalid.
+			return this.myRooms[theRow][theColumn]; //return the room at index x,y
+		return null; //return null if the position is invalid.
 	}
 
+	/**
+	 * Getter for the current room
+	 * @return the current room
+	 */
 	public Room getMyCurrentRoom() {
 		return myCurrentRoom;
 	}
 
+	/**
+	 * Chooses the bridge that the user wishes to cross and checks its question status.
+	 * If the question has been solved, they may proceed.  Otherwise, it will be unsuccessful.
+	 * @param theDirection the direction that the user wishes to move
+	 */
 	public void moveLocation(final Direction theDirection) {
 		switch(theDirection) {
 			case EAST -> {
@@ -79,10 +124,15 @@ public class Maze {
 		}
 	}
 
+	/**
+	 * Takes a bridge adjacent to the current room and either breaks it or solves it.
+	 * The former prevents the player from ever crossing the bridge, while the latter allows them to freely cross.
+	 * Any changes will also affect the room across the bridge specified.
+	 * @param theDirection the direction of the bridge to break or solve
+	 * @param theStatus the status of the bridge to be set (true to solve, false to break)
+	 */
 	public void breakOrSolveBridge(final Direction theDirection, final boolean theStatus) {
-
 		Room adjacentRoom;
-
 		switch(theDirection) {
 			case EAST -> {
 				myCurrentRoom.getMyBridgeE().setStatus(theStatus);
@@ -106,12 +156,25 @@ public class Maze {
 			}
 			default -> System.out.println("Error: Direction not valid.");
 		}
+
+		if (!checkAbilityToContinue()) {
+			System.out.println("You lost! :(");
+		}
 	}
 
-	public void setMyCurrentRoom(int theRow, int theColumn) {
+	/**
+	 * Setter for the current room, mostly for testing purposes.
+	 * @param theRow the row to set the current room in
+	 * @param theColumn the column to set the current room in
+	 */
+	public void setMyCurrentRoom(final int theRow, final int theColumn) {
 		myCurrentRoom = myRooms[theRow][theColumn];
 	}
 
+	/**
+	 * Checks if it is possible for the player to progress any further by checking if there are still bridges.
+	 * @return true if the player can still progress, false otherwise
+	 */
 	public boolean checkAbilityToContinue() {
 		return myCurrentRoom.getMyBridgeN().getOpenStatus()
 				|| myCurrentRoom.getMyBridgeE().getOpenStatus()
@@ -119,6 +182,10 @@ public class Maze {
 				|| myCurrentRoom.getMyBridgeS().getOpenStatus();
 	}
 
+	/**
+	 * Getter for the 2-D array of rooms
+	 * @return the 2-D array of rooms
+	 */
 	public Room[][] getRooms(){
 		return this.myRooms;//return all the rooms.
 	}

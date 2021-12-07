@@ -23,3 +23,19 @@
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
 }
+
+#winLabel {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/Labels/youWon.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center;
+}
+
+#loseLabel {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/Labels/youLost.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center;
+}

@@ -15,15 +15,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * GameScene controller for the MainMenu JavaFX Application.
  */
 public class GameSceneController {
-
-
 
     @FXML
     private Label resultLabel, questionLabel, shortAnswerLabel;
@@ -33,20 +30,26 @@ public class GameSceneController {
     private Button buttonA, buttonB, buttonC, buttonD;
     @FXML
     private TextField typeAnswerTextField, cheatField;
-
     @FXML
-    private Button EastBridge = new Button(),NorthBridge = new Button(),WestBridge = new Button(),SouthBridge = new Button();
+    private Label winLabel, loseLabel;
+    @FXML
+    private Button EastBridge = new Button(),
+            NorthBridge = new Button(),
+            WestBridge = new Button(),
+            SouthBridge = new Button();
 
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
-    /** initializes the maze to be used by default */
+    /** Initializes the maze to be used by default */
     private Maze myMaze = new Maze(4,4,0,0,3,3);
 
+    /** The correct answer to the question */
     private String myAnswer;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+
+    private Stage myStage;
+    private Scene myScene;
+    private Parent myRoot;
 
     public enum State {
             OPEN("open"),
@@ -59,6 +62,10 @@ public class GameSceneController {
         this.label = label;
     }}
 
+    /**
+     * Sets the maze to be used.
+     * @param theMaze the maze to be used
+     */
     @FXML
     public void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
@@ -66,7 +73,10 @@ public class GameSceneController {
         setBridges();
     }
 
-    //For initialization of bridges.
+    /**
+     * Initializes the bridges for the room.
+     * If the player has run out of bridges or has reached the end, a message pops up indicating so.
+     */
     @FXML
     public void setBridges() {
         NorthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
@@ -83,9 +93,17 @@ public class GameSceneController {
 
         if (myMaze.isAtEnd()) {
             System.out.println("You won!");
+            pauseBridges(true);
+            winLabel.setVisible(true);
+        } else if (!myMaze.checkAbilityToContinue()) {
+            System.out.println("You lost! :(");
+            loseLabel.setVisible(true);
         }
     }
 
+    /**
+     * Unlocks a bridge if the question is answered correctly.
+     */
     @FXML
     public void unlockBridge() {
 
@@ -107,7 +125,9 @@ public class GameSceneController {
         }
     }
 
-
+    /**
+     * Locks a bridge if the question is answered incorrectly.
+     */
     @FXML
     public void lockBridge() {
         if(NorthBridge.getText().equals(String.valueOf(State.QUESTION))) {
@@ -154,22 +174,35 @@ public class GameSceneController {
         }
     }
 
+    /**
+     * Exits the program.
+     * @param event exit the program
+     */
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * Returns to main menu by switching scene.
+     * @param event returning to the main menu
+     * @throws IOException in case the fxml file is not found
+     */
     @FXML
     private void returnToMainMenu(final ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/Styles.css")).toExternalForm());
-        scene.setFill(Color.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
+        myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
+        myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        myScene = new Scene(myRoot);
+        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/Styles.css")).toExternalForm());
+        myScene.setFill(Color.TRANSPARENT);
+        myStage.setScene(myScene);
+        myStage.show();
     }
 
+    /**
+     * Action assigned to clicking north bridge.
+     * Either asks a question or moves the player based on bridge status.
+     */
     @FXML
     private void NorthClick() {
         if (!myMaze.getMyCurrentRoom().getMyBridgeN().getQuestionStatus()) {
@@ -181,6 +214,11 @@ public class GameSceneController {
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
+
+    /**
+     * Action assigned to clicking east bridge.
+     * Either asks a question or moves the player based on bridge status.
+     */
     @FXML
     private void EastClick() {
         if (!myMaze.getMyCurrentRoom().getMyBridgeE().getQuestionStatus()) {
@@ -192,6 +230,11 @@ public class GameSceneController {
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
+
+    /**
+     * Action assigned to clicking west bridge.
+     * Either asks a question or moves the player based on bridge status.
+     */
     @FXML
     private void WestClick() {
         if (!myMaze.getMyCurrentRoom().getMyBridgeW().getQuestionStatus()) {
@@ -203,6 +246,11 @@ public class GameSceneController {
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
+
+    /**
+     * Action assigned to clicking south bridge.
+     * Either asks a question or moves the player based on bridge status.
+     */
     @FXML
     private void SouthClick() {
         if (!myMaze.getMyCurrentRoom().getMyBridgeS().getQuestionStatus()) {
@@ -215,6 +263,9 @@ public class GameSceneController {
         }
     }
 
+    /**
+     * Generates a question, filling in the trivia pane.
+     */
     @FXML
     private void generateQuestion() {
         pauseBridges(true);
@@ -253,26 +304,41 @@ public class GameSceneController {
 
     }
 
+    /**
+     * Checks if option A was the correct answer.
+     */
     @FXML
     private void answerA() {
         checkAnswer("A");
     }
 
+    /**
+     * Checks if option B was the correct answer.
+     */
     @FXML
     private void answerB() {
         checkAnswer("B");
     }
 
+    /**
+     * Checks if option C was the correct answer.
+     */
     @FXML
     private void answerC() {
         checkAnswer("C");
     }
 
+    /**
+     * Checks if option D was the correct answer.
+     */
     @FXML
     private void answerD() {
         checkAnswer("D");
     }
 
+    /**
+     * Gets inputted answer from text field and checks if the answer is correct.
+     */
     @FXML
     private void shortAnswer() {
         String answer = typeAnswerTextField.getText().toLowerCase();
@@ -307,6 +373,10 @@ public class GameSceneController {
         shortAnswerLabel.setDisable(true);
     }
 
+    /**
+     * Sets multiple choice answer buttons disabled or enabled
+     * @param theState true to disable buttons, false to enable them
+     */
     @FXML
     private void setAnswerButtonsDisabled(final boolean theState) {
         buttonA.setDisable(theState);
@@ -315,14 +385,23 @@ public class GameSceneController {
         buttonD.setDisable(theState);
     }
 
+    /**
+     * Cheat codes, mostly for testing purposes.
+     */
     @FXML
     private void cheatCode() {
         if (cheatField.getText().equals("GNQ")) {
             generateQuestion();
-        }
-        if (cheatField.getText().equals("WWCD")) {
+        } else if (cheatField.getText().equals("WWCD")) {
             myMaze.setMyCurrentRoom(3,3);
             setBridges();
+        } else {
+            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.NORTH, false);
+            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.SOUTH, false);
+            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.EAST, false);
+            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.WEST, false);
+            setBridges();
+            System.out.println("Try not cheating next time!");
         }
     }
 

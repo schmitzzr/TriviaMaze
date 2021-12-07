@@ -69,4 +69,11 @@ public class MazeTest {
         assertTrue(myMaze.isAtEnd());
     }
 
+    @Test
+    public void TestIfBreakingEastBridgeAffectsBothRooms() {
+        myMaze.setMyCurrentRoom(START_ROW, START_COLUMN);
+        myMaze.breakOrSolveBridge(Direction.EAST, false);
+        myMaze.setMyCurrentRoom(START_ROW, START_COLUMN + 1);
+        assertFalse(myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus());
+    }
 }

@@ -6,6 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -26,6 +29,48 @@
                   <Button fx:id="SouthBridge" layoutX="435.0" layoutY="524.0" mnemonicParsing="false" onAction="#SouthClick" prefHeight="190.0" prefWidth="90.0" text="OPEN" />
                   <Label layoutX="31.0" layoutY="684.0" text="Cheat Code:" />
                   <TextField fx:id="cheatField" layoutX="100.0" layoutY="680.0" onAction="#cheatCode" />
+                  <Label fx:id="winLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="269.0" prefHeight="200.0" prefWidth="750.0" text="you won" textAlignment="CENTER" visible="false">
+                     <font>
+                        <Font name="Dead Kansas" size="64.0" />
+                     </font>
+                     <textFill>
+                        <RadialGradient centerX="0.5165745856353591" centerY="0.5995260663507109" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </Label>
+                  <Label fx:id="loseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="269.0" prefHeight="200.0" prefWidth="750.0" text="you lost" textAlignment="CENTER" visible="false">
+                     <font>
+                        <Font name="Dead Kansas" size="64.0" />
+                     </font>
+                     <textFill>
+                        <RadialGradient centerX="0.5165745856353591" centerY="0.5995260663507109" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </Label>
                </children>
             </Pane>
             <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">

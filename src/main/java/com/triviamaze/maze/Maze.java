@@ -157,7 +157,7 @@ public class Maze implements Serializable {
 		}
 
 		if (!checkAbilityToContinue()) {
-			System.out.println("You lost! :(");
+			printYouLost();
 		}
 	}
 
@@ -179,6 +179,10 @@ public class Maze implements Serializable {
 				|| myCurrentRoom.getMyBridgeE().getOpenStatus()
 				|| myCurrentRoom.getMyBridgeW().getOpenStatus()
 				|| myCurrentRoom.getMyBridgeS().getOpenStatus();
+	}
+
+	public void printYouLost() {
+		System.out.println("You lost :(");
 	}
 
 	/**

@@ -105,19 +105,19 @@ public class Maze implements Serializable {
 	public void moveLocation(final Direction theDirection) {
 		switch(theDirection) {
 			case EAST -> {
-				if (myCurrentRoom.getMyBridgeE().getQuestionStatus())
+				if (myCurrentRoom.getMyBridgeE().getSolvedStatus())
 					myCurrentRoom = myRooms[myCurrentRoom.getMyRow()][myCurrentRoom.getMyColumn() + 1];
 			}
 			case WEST -> {
-				if (myCurrentRoom.getMyBridgeW().getQuestionStatus())
+				if (myCurrentRoom.getMyBridgeW().getSolvedStatus())
 					myCurrentRoom = myRooms[myCurrentRoom.getMyRow()][myCurrentRoom.getMyColumn() - 1];
 			}
 			case NORTH -> {
-				if (myCurrentRoom.getMyBridgeN().getQuestionStatus())
+				if (myCurrentRoom.getMyBridgeN().getSolvedStatus())
 					myCurrentRoom = myRooms[myCurrentRoom.getMyRow() - 1][myCurrentRoom.getMyColumn()];
 			}
 			case SOUTH -> {
-				if (myCurrentRoom.getMyBridgeS().getQuestionStatus())
+				if (myCurrentRoom.getMyBridgeS().getSolvedStatus())
 					myCurrentRoom = myRooms[myCurrentRoom.getMyRow() + 1][myCurrentRoom.getMyColumn()];
 			}
 		}

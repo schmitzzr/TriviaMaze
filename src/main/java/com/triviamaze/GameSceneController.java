@@ -51,17 +51,6 @@ public class GameSceneController {
     private Scene myScene;
     private Parent myRoot;
 
-    public enum State {
-            OPEN("open"),
-                    LOCKED("locked"),
-                    UNLOCKED("unlocked"),
-                    QUESTION("question");
-
-    private final String label;
-    State(String label) {
-        this.label = label;
-    }}
-
     /**
      * Sets the maze to be used.
      * @param theMaze the maze to be used
@@ -102,53 +91,27 @@ public class GameSceneController {
     }
 
     /**
-     * Unlocks a bridge if the question is answered correctly.
+     * Locks or unlocks a bridge if the question is answered incorrectly or correctly, respectively.
+     * @param theStatus true to unlock the bridge, false to break it
      */
     @FXML
-    public void unlockBridge() {
-
-        if(NorthBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            NorthBridge.setText(String.valueOf(State.UNLOCKED));
-            myMaze.breakOrSolveBridge(Direction.NORTH, true);
-        }
-        if(EastBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            EastBridge.setText(String.valueOf(State.UNLOCKED));
-            myMaze.breakOrSolveBridge(Direction.EAST, true);
-        }
-        if(WestBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            WestBridge.setText(String.valueOf(State.UNLOCKED));
-            myMaze.breakOrSolveBridge(Direction.WEST, true);
-        }
-        if(SouthBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            SouthBridge.setText(String.valueOf(State.UNLOCKED));
-            myMaze.breakOrSolveBridge(Direction.SOUTH, true);
-        }
-    }
-
-    /**
-     * Locks a bridge if the question is answered incorrectly.
-     */
-    @FXML
-    public void lockBridge() {
-        if(NorthBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            NorthBridge.setText(String.valueOf(State.LOCKED));
-            myMaze.breakOrSolveBridge(Direction.NORTH, false);
-            NorthBridge.setVisible(false);
-        }
-        if(EastBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            EastBridge.setText(String.valueOf(State.LOCKED));
-            myMaze.breakOrSolveBridge(Direction.EAST, false);
-            EastBridge.setVisible(false);
-        }
-        if(WestBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            WestBridge.setText(String.valueOf(State.LOCKED));
-            myMaze.breakOrSolveBridge(Direction.WEST, false);
-            WestBridge.setVisible(false);
-        }
-        if(SouthBridge.getText().equals(String.valueOf(State.QUESTION))) {
-            SouthBridge.setText(String.valueOf(State.LOCKED));
-            myMaze.breakOrSolveBridge(Direction.SOUTH, false);
-            SouthBridge.setVisible(false);
+    public void unlockTheBridge(boolean theStatus) {
+        if (myMaze.getMyCurrentRoom().getMyBridgeN().getQuestionStatus()) {
+            myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.NORTH, false);
+            myMaze.breakOrSolveBridge(Direction.NORTH, theStatus);
+            NorthBridge.setVisible(theStatus);
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeE().getQuestionStatus()) {
+            myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.EAST, false);
+            myMaze.breakOrSolveBridge(Direction.EAST, theStatus);
+            EastBridge.setVisible(theStatus);
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeW().getQuestionStatus()) {
+            myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.WEST, false);
+            myMaze.breakOrSolveBridge(Direction.WEST, theStatus);
+            WestBridge.setVisible(theStatus);
+        } else if (myMaze.getMyCurrentRoom().getMyBridgeS().getQuestionStatus()) {
+            myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.SOUTH, false);
+            myMaze.breakOrSolveBridge(Direction.SOUTH, theStatus);
+            SouthBridge.setVisible(theStatus);
         }
     }
 
@@ -205,9 +168,9 @@ public class GameSceneController {
      */
     @FXML
     private void NorthClick() {
-        if (!myMaze.getMyCurrentRoom().getMyBridgeN().getQuestionStatus()) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeN().getSolvedStatus()) {
             generateQuestion();
-            NorthBridge.setText(String.valueOf(State.QUESTION));
+            myMaze.getMyCurrentRoom().getMyBridgeN().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus()){
             myMaze.moveLocation(Direction.NORTH);
             setBridges();
@@ -221,9 +184,9 @@ public class GameSceneController {
      */
     @FXML
     private void EastClick() {
-        if (!myMaze.getMyCurrentRoom().getMyBridgeE().getQuestionStatus()) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeE().getSolvedStatus()) {
             generateQuestion();
-            EastBridge.setText(String.valueOf(State.QUESTION));
+            myMaze.getMyCurrentRoom().getMyBridgeE().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus()){
             myMaze.moveLocation(Direction.EAST);
             setBridges();
@@ -237,9 +200,9 @@ public class GameSceneController {
      */
     @FXML
     private void WestClick() {
-        if (!myMaze.getMyCurrentRoom().getMyBridgeW().getQuestionStatus()) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeW().getSolvedStatus()) {
             generateQuestion();
-            WestBridge.setText(String.valueOf(State.QUESTION));
+            myMaze.getMyCurrentRoom().getMyBridgeW().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus()){
             myMaze.moveLocation(Direction.WEST);
             setBridges();
@@ -253,9 +216,9 @@ public class GameSceneController {
      */
     @FXML
     private void SouthClick() {
-        if (!myMaze.getMyCurrentRoom().getMyBridgeS().getQuestionStatus()) {
+        if (!myMaze.getMyCurrentRoom().getMyBridgeS().getSolvedStatus()) {
             generateQuestion();
-            SouthBridge.setText(String.valueOf(State.QUESTION));
+            myMaze.getMyCurrentRoom().getMyBridgeS().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus()){
             myMaze.moveLocation(Direction.SOUTH);
             setBridges();
@@ -350,12 +313,12 @@ public class GameSceneController {
      * @param theGuess the answer to the question
      */
     private void checkAnswer(final String theGuess) {
-        if (theGuess.equals(myAnswer)) {
+        if (myTrivia.getResult(theGuess)) {
             resultLabel.setText("Correct!\nYou may continue.");
-            unlockBridge();
+            unlockTheBridge(true);
         } else {
             resultLabel.setText("Incorrect!\nThis bridge has broken.");
-            lockBridge();
+            unlockTheBridge(false);
         }
         pauseBridges(false);
         setAnswerButtonsDisabled(true);
@@ -390,11 +353,13 @@ public class GameSceneController {
      */
     @FXML
     private void cheatCode() {
-        if (cheatField.getText().equals("GNQ")) {
+        if (cheatField.getText().equals("NUQU")) {
             generateQuestion();
         } else if (cheatField.getText().equals("WWCD")) {
             myMaze.setMyCurrentRoom(3,3);
             setBridges();
+        } else if (cheatField.getText().equals("GTQR")){
+            checkAnswer(myAnswer);
         } else {
             myMaze.getMyCurrentRoom().setBridgeStatus(Direction.NORTH, false);
             myMaze.getMyCurrentRoom().setBridgeStatus(Direction.SOUTH, false);
@@ -403,6 +368,7 @@ public class GameSceneController {
             setBridges();
             System.out.println("Try not cheating next time!");
         }
+        cheatField.setText("");
     }
 
 

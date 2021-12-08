@@ -60,6 +60,24 @@ public class Room {
 	}
 
 	/**
+	 * Sets the status of the bridge in the listed cardinal direction.
+	 * @param theDirection the cardinal direction of the bridge
+	 * @param theStatus the status of the bridge (true for question solved, false for bridge broken)
+	 */
+	public void setBridgeQStatus(final Direction theDirection, final boolean theStatus) {
+		switch(theDirection) {
+			case NORTH ->
+					myBridgeN.setQuestionStatus(theStatus);
+			case EAST ->
+					myBridgeE.setQuestionStatus(theStatus);
+			case WEST ->
+					myBridgeW.setQuestionStatus(theStatus);
+			case SOUTH ->
+					myBridgeS.setQuestionStatus(theStatus);
+		}
+	}
+
+	/**
 	 * Getter for the north bridge.
 	 * @return the north bridge
 	 */

@@ -162,6 +162,17 @@ public class GameSceneController {
         myStage.show();
     }
 
+    @FXML
+    private void helpClicked(final ActionEvent event) throws IOException {
+        myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpScene.fxml")));
+        myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        myScene = new Scene(myRoot);
+        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/HelpScene.css")).toExternalForm());
+        myScene.setFill(Color.TRANSPARENT);
+        myStage.setScene(myScene);
+        myStage.show();
+    }
+
     /**
      * Action assigned to clicking north bridge.
      * Either asks a question or moves the player based on bridge status.

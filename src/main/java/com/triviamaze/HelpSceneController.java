@@ -25,4 +25,15 @@ public class HelpSceneController {
         myStage.show();
     }
 
+    @FXML
+    public void returnToGame(final ActionEvent event) throws IOException {
+        Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
+        Stage  myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene myScene = new Scene(myRoot);
+        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());
+        myScene.setFill(Color.TRANSPARENT);
+        myStage.setScene(myScene);
+        myStage.show();
+    }
+
 }

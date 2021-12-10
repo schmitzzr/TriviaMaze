@@ -9,7 +9,6 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="730" prefWidth="1300" stylesheets="@GameScene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.GameSceneController">
@@ -18,16 +17,16 @@
          <children>
             <Pane prefHeight="730.0" prefWidth="950.0">
                <children>
-                  <Rectangle fx:id="theRoom" arcHeight="5.0" arcWidth="5.0" fill="#aeb7bf" height="380.0" layoutX="314.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="332.0" />
-                  <Button fx:id="mainMenu" layoutX="690.0" layoutY="590.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
-                  <Button fx:id="exitButton" layoutX="727.0" layoutY="663.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="58.0" prefWidth="101.0" text="Exit" />
-                  <Button layoutX="835.0" layoutY="590.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Help" />
-                  <Button layoutX="835.0" layoutY="663.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="101.0" text="Settings" />
-                  <Button fx:id="WestBridge" disable="true" layoutX="174.0" layoutY="324.0" mnemonicParsing="false" onAction="#WestClick" prefHeight="90.0" prefWidth="190.0" text="OPEN" visible="false" />
-                  <Button fx:id="EastBridge" layoutX="616.0" layoutY="324.0" mnemonicParsing="false" onAction="#EastClick" prefHeight="90.0" prefWidth="190.0" text="OPEN" />
-                  <Button fx:id="NorthBridge" disable="true" layoutX="430.0" layoutY="14.0" mnemonicParsing="false" onAction="#NorthClick" prefHeight="190.0" prefWidth="90.0" text="OPEN" visible="false" />
-                  <Button fx:id="SouthBridge" layoutX="435.0" layoutY="524.0" mnemonicParsing="false" onAction="#SouthClick" prefHeight="190.0" prefWidth="90.0" text="OPEN" />
-                  <Label layoutX="31.0" layoutY="684.0" text="Cheat Code:" />
+                  <Pane fx:id="theRoom" layoutX="14.0" layoutY="114.0" prefHeight="508.0" prefWidth="920.0">
+                     <children>
+                        <Button fx:id="SouthBridge" layoutX="198.0" layoutY="254.0" mnemonicParsing="false" onAction="#SouthClick" prefHeight="106.0" prefWidth="168.0" text="OPEN" />
+                        <Button fx:id="EastBridge" layoutX="551.0" layoutY="262.0" mnemonicParsing="false" onAction="#EastClick" prefHeight="106.0" prefWidth="168.0" text="OPEN" />
+                        <Button fx:id="WestBridge" disable="true" layoutX="218.0" layoutY="74.0" mnemonicParsing="false" onAction="#WestClick" prefHeight="106.0" prefWidth="168.0" text="OPEN" visible="false" />
+                        <Button fx:id="NorthBridge" disable="true" layoutX="543.0" layoutY="81.0" mnemonicParsing="false" onAction="#NorthClick" prefHeight="106.0" prefWidth="168.0" text="OPEN" visible="false" />
+                     </children></Pane>
+                  <Button fx:id="mainMenu" layoutX="607.0" layoutY="651.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
+                  <Button fx:id="helpButton" layoutX="858.0" layoutY="540.0" mnemonicParsing="false" prefHeight="85" prefWidth="85" onAction="#helpClicked" />
+                  <Label layoutX="31.0" layoutY="684.0" text="Cheat Code:" textFill="WHITE" />
                   <TextField fx:id="cheatField" layoutX="100.0" layoutY="680.0" onAction="#cheatCode" />
                   <Label fx:id="winLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="269.0" prefHeight="200.0" prefWidth="750.0" text="you won" textAlignment="CENTER" visible="false">
                      <font>
@@ -71,6 +70,8 @@
                         </RadialGradient>
                      </textFill>
                   </Label>
+                  <Button fx:id="exitButton" layoutX="856.0" layoutY="639.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="90" prefWidth="90" />
+                  <Button fx:id="settingsButton" layoutX="760.0" layoutY="635.0" mnemonicParsing="false" prefHeight="90" prefWidth="90" />
                </children>
             </Pane>
             <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">

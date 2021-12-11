@@ -73,6 +73,11 @@
                         </RadialGradient>
                      </textFill>
                   </Label>
+                  <Label fx:id="locationLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="760.0" layoutY="43.0" prefHeight="34.0" prefWidth="164.0" text="Row 0, Column 0" textAlignment="RIGHT" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="Doppio One Regular" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">

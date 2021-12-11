@@ -31,14 +31,12 @@ public class GameSceneController {
     @FXML
     private TextField typeAnswerTextField, cheatField;
     @FXML
-    private Label winLabel, loseLabel;
+    private Label winLabel, loseLabel, locationLabel;
     @FXML
     private Button EastBridge = new Button(),
             NorthBridge = new Button(),
             WestBridge = new Button(),
             SouthBridge = new Button();
-    @FXML
-    private Button giveUpButton;
 
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
@@ -61,7 +59,7 @@ public class GameSceneController {
     public void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
         System.out.println("Current room: " + myMaze.getMyCurrentRoom());
-        setBridges();
+        setTheRoom();
     }
 
     /**
@@ -69,7 +67,9 @@ public class GameSceneController {
      * If the player has run out of bridges or has reached the end, a message pops up indicating so.
      */
     @FXML
-    public void setBridges() {
+    public void setTheRoom() {
+        setLocationLabel();
+
         NorthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
         NorthBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
 
@@ -111,7 +111,7 @@ public class GameSceneController {
             myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.SOUTH, false);
             myMaze.breakOrSolveBridge(Direction.SOUTH, theStatus);
         }
-        setBridges();
+        setTheRoom();
     }
 
     /**
@@ -183,7 +183,7 @@ public class GameSceneController {
             myMaze.getMyCurrentRoom().getMyBridgeN().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus()){
             myMaze.moveLocation(Direction.NORTH);
-            setBridges();
+            setTheRoom();
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
@@ -199,7 +199,7 @@ public class GameSceneController {
             myMaze.getMyCurrentRoom().getMyBridgeE().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeE().getOpenStatus()){
             myMaze.moveLocation(Direction.EAST);
-            setBridges();
+            setTheRoom();
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
@@ -215,7 +215,7 @@ public class GameSceneController {
             myMaze.getMyCurrentRoom().getMyBridgeW().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeW().getOpenStatus()){
             myMaze.moveLocation(Direction.WEST);
-            setBridges();
+            setTheRoom();
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
@@ -231,7 +231,7 @@ public class GameSceneController {
             myMaze.getMyCurrentRoom().getMyBridgeS().setQuestionStatus(true);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeS().getOpenStatus()){
             myMaze.moveLocation(Direction.SOUTH);
-            setBridges();
+            setTheRoom();
             System.out.println("Current room: " + myMaze.getMyCurrentRoom());
         }
     }
@@ -363,16 +363,19 @@ public class GameSceneController {
      */
     @FXML
     private void cheatCode() {
-        if (cheatField.getText().equals("NUQU")) {
-            generateQuestion();
-        } else if (cheatField.getText().equals("WWCD")) {
-            myMaze.setMyCurrentRoom(3,3);
-            setBridges();
-        } else if (cheatField.getText().equals("GTQR")){
-            checkAnswer(myAnswer);
-        } else {
-            giveUp();
-            System.out.println("Try not cheating next time!");
+        String cheat = cheatField.getText().toUpperCase();
+        switch (cheat) {
+            case "NUQU" -> generateQuestion();
+            case "WWCD" -> {
+                myMaze.setMyCurrentRoom(3, 3);
+                setTheRoom();
+            }
+            case "GTQR" -> checkAnswer(myAnswer);
+            case "WHEREAMI" -> locationLabel.setVisible(true);
+            default -> {
+                giveUp();
+                System.out.println("Try not cheating next time!");
+            }
         }
         cheatField.setText("");
     }
@@ -383,8 +386,14 @@ public class GameSceneController {
         myMaze.getMyCurrentRoom().setBridgeStatus(Direction.SOUTH, false);
         myMaze.getMyCurrentRoom().setBridgeStatus(Direction.EAST, false);
         myMaze.getMyCurrentRoom().setBridgeStatus(Direction.WEST, false);
-        setBridges();
+        setTheRoom();
     }
 
+    @FXML
+    private void setLocationLabel() {
+        int row = myMaze.getMyCurrentRoom().getMyRow();
+        int column = myMaze.getMyCurrentRoom().getMyColumn();
+        locationLabel.setText("Row " + row + ", Column " + column);
+    }
 
 }

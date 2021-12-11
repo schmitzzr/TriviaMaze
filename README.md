@@ -1,2 +1,2 @@
 # TriviaMaze
-The repository for the Trivia Maze project.
+The repository for the Trivia Maze Project.

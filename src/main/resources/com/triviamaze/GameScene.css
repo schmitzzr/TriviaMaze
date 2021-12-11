@@ -13,9 +13,37 @@
     -fx-background-repeat: no-repeat;
 }
 
+#WestBridge:hover,#EastBridge:hover {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/horizontal_bridge_hover.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}
+
 #SouthBridge,#NorthBridge {
     -fx-text-fill: transparent;
     -fx-background-image: url("Images/vertical_bridge.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}
+
+#SouthBridge:hover,#NorthBridge:hover {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/vertical_bridge_hover.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}
+
+#giveUpButton {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/give_up.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}
+
+#giveUpButton:hover {
+    -fx-text-fill: transparent;
+    -fx-background-image: url("Images/give_up_hover.png");
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
 }

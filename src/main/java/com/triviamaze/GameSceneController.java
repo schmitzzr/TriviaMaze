@@ -37,6 +37,8 @@ public class GameSceneController {
             NorthBridge = new Button(),
             WestBridge = new Button(),
             SouthBridge = new Button();
+    @FXML
+    private Button giveUpButton;
 
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
@@ -99,20 +101,17 @@ public class GameSceneController {
         if (myMaze.getMyCurrentRoom().getMyBridgeN().getQuestionStatus()) {
             myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.NORTH, false);
             myMaze.breakOrSolveBridge(Direction.NORTH, theStatus);
-            NorthBridge.setVisible(theStatus);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeE().getQuestionStatus()) {
             myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.EAST, false);
             myMaze.breakOrSolveBridge(Direction.EAST, theStatus);
-            EastBridge.setVisible(theStatus);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeW().getQuestionStatus()) {
             myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.WEST, false);
             myMaze.breakOrSolveBridge(Direction.WEST, theStatus);
-            WestBridge.setVisible(theStatus);
         } else if (myMaze.getMyCurrentRoom().getMyBridgeS().getQuestionStatus()) {
             myMaze.getMyCurrentRoom().setBridgeQStatus(Direction.SOUTH, false);
             myMaze.breakOrSolveBridge(Direction.SOUTH, theStatus);
-            SouthBridge.setVisible(theStatus);
         }
+        setBridges();
     }
 
     /**
@@ -372,14 +371,19 @@ public class GameSceneController {
         } else if (cheatField.getText().equals("GTQR")){
             checkAnswer(myAnswer);
         } else {
-            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.NORTH, false);
-            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.SOUTH, false);
-            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.EAST, false);
-            myMaze.getMyCurrentRoom().setBridgeStatus(Direction.WEST, false);
-            setBridges();
+            giveUp();
             System.out.println("Try not cheating next time!");
         }
         cheatField.setText("");
+    }
+
+    @FXML
+    private void giveUp() {
+        myMaze.getMyCurrentRoom().setBridgeStatus(Direction.NORTH, false);
+        myMaze.getMyCurrentRoom().setBridgeStatus(Direction.SOUTH, false);
+        myMaze.getMyCurrentRoom().setBridgeStatus(Direction.EAST, false);
+        myMaze.getMyCurrentRoom().setBridgeStatus(Direction.WEST, false);
+        setBridges();
     }
 
 

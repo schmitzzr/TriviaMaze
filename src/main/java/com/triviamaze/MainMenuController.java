@@ -37,8 +37,8 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
-        GameSceneController gameSceneController = new GameSceneController();
-        gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
+//        GameSceneController gameSceneController = new GameSceneController();
+//        gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
     }
 
     public void loadGame(final ActionEvent event) throws IOException {

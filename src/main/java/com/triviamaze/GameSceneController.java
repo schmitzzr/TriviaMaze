@@ -14,7 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -37,12 +41,12 @@ public class GameSceneController {
             NorthBridge = new Button(),
             WestBridge = new Button(),
             SouthBridge = new Button();
-
+    private static ArrayList<GameSceneController> all=new ArrayList<GameSceneController>();
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
     /** Initializes the maze to be used by default */
-    private Maze myMaze = new Maze(4,4,0,0,3,3);
+    private static Maze myMaze = new Maze(4,4,0,0,3,3);
 
     /** The correct answer to the question */
     private String myAnswer;
@@ -51,15 +55,25 @@ public class GameSceneController {
     private Scene myScene;
     private Parent myRoot;
 
+
+    public GameSceneController(){
+        this.setTheRoom();
+        all.add(this);
+    }
     /**
      * Sets the maze to be used.
      * @param theMaze the maze to be used
      */
     @FXML
-    public void setMyMaze(final Maze theMaze) {
+    public static void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
-        System.out.println("Current room: " + myMaze.getMyCurrentRoom());
-        setTheRoom();
+        for(int i=0;i<all.size();i++) {
+            try {
+                all.get(i).setTheRoom();
+            }catch(Exception e){
+
+            }
+        }
     }
 
     @FXML
@@ -75,7 +89,8 @@ public class GameSceneController {
      */
     @FXML
     public void setTheRoom() {
-        setLocationLabel();
+        if(locationLabel!=null)
+            setLocationLabel();
 
         NorthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
         NorthBridge.setDisable(!myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
@@ -148,7 +163,11 @@ public class GameSceneController {
      * @param event exit the program
      */
     @FXML
-    private void exitButtonClicked(final ActionEvent event) {
+    private void exitButtonClicked(final ActionEvent event) throws IOException {
+        OutputStream file=new FileOutputStream("status");
+        ObjectOutputStream out=new ObjectOutputStream(file);
+        out.writeObject(this.myMaze);
+        file.close();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
@@ -402,5 +421,6 @@ public class GameSceneController {
         int column = myMaze.getMyCurrentRoom().getMyColumn();
         locationLabel.setText("Row " + row + ", Column " + column);
     }
+
 
 }

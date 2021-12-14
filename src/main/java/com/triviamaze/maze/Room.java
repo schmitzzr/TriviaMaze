@@ -2,7 +2,7 @@ package com.triviamaze.maze;
 
 import java.io.Serializable;
 
-public class Room {
+public class Room implements Serializable{
 
 	/** The row and column of the room's location */
 	private final int myRow, myColumn;
@@ -49,13 +49,13 @@ public class Room {
 	public void setBridgeStatus(final Direction theDirection, final boolean theStatus) {
 		switch(theDirection) {
 			case NORTH ->
-				myBridgeN.setStatus(theStatus);
+					myBridgeN.setStatus(theStatus);
 			case EAST ->
-				myBridgeE.setStatus(theStatus);
+					myBridgeE.setStatus(theStatus);
 			case WEST ->
-				myBridgeW.setStatus(theStatus);
+					myBridgeW.setStatus(theStatus);
 			case SOUTH ->
-				myBridgeS.setStatus(theStatus);
+					myBridgeS.setStatus(theStatus);
 		}
 	}
 

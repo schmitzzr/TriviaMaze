@@ -13,8 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.Objects;
 
@@ -31,6 +30,7 @@ public class MainMenuController {
 
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
+        GameSceneController gameSceneController = new GameSceneController();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
@@ -55,6 +55,7 @@ public class MainMenuController {
 
 
     public void loadGame(final ActionEvent event) throws IOException {
+
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -62,6 +63,18 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
+        mySettings.music();
+        Maze maze=null;
+        try {
+            InputStream file = new FileInputStream("status");
+            ObjectInputStream out = new ObjectInputStream(file);
+            maze = (Maze) out.readObject();
+            file.close();
+            GameSceneController.setMyMaze(maze);
+            System.out.print("Hello Hello");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void settingsButtonClicked(final ActionEvent theEvent) throws IOException {
@@ -84,3 +97,4 @@ public class MainMenuController {
         stage.show();
     }
 }
+

@@ -1,6 +1,8 @@
 package com.triviamaze.maze;
 
-public class Bridge {
+import java.io.Serializable;
+
+public class Bridge implements Serializable {
 
 	/** true if the bridge is still possible to be crossed, false if the bridge has been broken */
 	private boolean myOpenStatus;

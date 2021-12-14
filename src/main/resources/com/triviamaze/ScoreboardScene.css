@@ -1,0 +1,6 @@
+.root { -fx-background-color: transparent; }
+#ScoreboardBackground {
+    -fx-background-image: url("Images/MainBackground.png");
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+}

@@ -41,12 +41,14 @@ public class GameSceneController {
             NorthBridge = new Button(),
             WestBridge = new Button(),
             SouthBridge = new Button();
-    private static ArrayList<GameSceneController> all=new ArrayList<GameSceneController>();
+    private static ArrayList<GameSceneController> all= new ArrayList<>();
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
     /** Initializes the maze to be used by default */
     private static Maze myMaze = new Maze(4,4,0,0,3,3);
+
+    private static MainMenuController myMainMenu = new MainMenuController();
 
     /** The correct answer to the question */
     private String myAnswer;
@@ -67,11 +69,11 @@ public class GameSceneController {
     @FXML
     public static void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
-        for(int i=0;i<all.size();i++) {
+        for (GameSceneController theGameSceneController : all) {
             try {
-                all.get(i).setTheRoom();
-            }catch(Exception e){
-
+                theGameSceneController.setTheRoom();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -166,7 +168,7 @@ public class GameSceneController {
     private void exitButtonClicked(final ActionEvent event) throws IOException {
         OutputStream file=new FileOutputStream("status");
         ObjectOutputStream out=new ObjectOutputStream(file);
-        out.writeObject(this.myMaze);
+        out.writeObject(myMaze);
         file.close();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
@@ -177,10 +179,10 @@ public class GameSceneController {
      * @throws IOException in case the fxml file is not found
      */
     @FXML
-    private void returnToMainMenu(final ActionEvent event) throws IOException {
+    public void returnToMainMenu(final ActionEvent event) throws IOException {
         OutputStream file=new FileOutputStream("status");
         ObjectOutputStream out=new ObjectOutputStream(file);
-        out.writeObject(this.myMaze);
+        out.writeObject(myMaze);
         file.close();
         myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -192,14 +194,21 @@ public class GameSceneController {
     }
 
     @FXML
-    private void helpClicked(final ActionEvent event) throws IOException {
-        myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpScene.fxml")));
-        myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        myScene = new Scene(myRoot);
-        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/HelpScene.css")).toExternalForm());
-        myScene.setFill(Color.TRANSPARENT);
-        myStage.setScene(myScene);
-        myStage.show();
+    private void helpClicked(final ActionEvent myEvent) throws IOException {
+        OutputStream file=new FileOutputStream("status");
+        ObjectOutputStream out=new ObjectOutputStream(file);
+        out.writeObject(myMaze);
+        file.close();
+        myMainMenu.helpButtonClicked(myEvent);
+    }
+
+    @FXML
+    private void settingsClicked(final ActionEvent myEvent) throws IOException {
+        OutputStream file=new FileOutputStream("status");
+        ObjectOutputStream out=new ObjectOutputStream(file);
+        out.writeObject(myMaze);
+        file.close();
+        myMainMenu.settingsButtonClicked(myEvent);
     }
 
     /**

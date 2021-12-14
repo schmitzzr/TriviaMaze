@@ -30,7 +30,6 @@ public class MainMenuController {
 
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
-        GameSceneController gameSceneController = new GameSceneController();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
@@ -63,7 +62,6 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
-        mySettings.music();
         Maze maze=null;
         try {
             InputStream file = new FileInputStream("status");

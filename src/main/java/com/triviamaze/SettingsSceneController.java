@@ -1,5 +1,6 @@
 package com.triviamaze;
 
+import com.triviamaze.maze.Maze;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -16,7 +17,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -41,8 +45,6 @@ public class SettingsSceneController implements Initializable {
     private int myMusicVolume;
     private int myEffectsVolume;
 
-
-
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
         Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
@@ -54,10 +56,16 @@ public class SettingsSceneController implements Initializable {
         myStage.show();
     }
 
+    @FXML
+    private void returnToTheGame(final ActionEvent myEvent) throws IOException {
+        MainMenuController myMainMenu = new MainMenuController();
+        myMainMenu.loadGame(myEvent);
+    }
+
     /**
      * Initializes sound
-     * @param theUrl
-     * @param resourceBundle
+     * @param theUrl address to the sound file.
+     * @param resourceBundle for localization.
      */
     @Override
     public void initialize(URL theUrl, ResourceBundle resourceBundle) {

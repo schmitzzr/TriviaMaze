@@ -14,26 +14,17 @@ import java.util.Objects;
 
 public class HelpSceneController {
 
+    private static final GameSceneController myGameSceneController = new GameSceneController();
+    private static final MainMenuController myMainMenu = new MainMenuController();
+
     @FXML
-    public void returnToMainMenu(final ActionEvent event) throws IOException {
-        Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
-        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene myScene = new Scene(myRoot);
-        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/Styles.css")).toExternalForm());
-        myScene.setFill(Color.TRANSPARENT);
-        myStage.setScene(myScene);
-        myStage.show();
+    public void returnToMainMenu(final ActionEvent myEvent) throws IOException {
+        myGameSceneController.returnToMainMenu(myEvent);
     }
 
     @FXML
-    public void returnToGame(final ActionEvent event) throws IOException {
-        Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
-        Stage  myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene myScene = new Scene(myRoot);
-        myScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());
-        myScene.setFill(Color.TRANSPARENT);
-        myStage.setScene(myScene);
-        myStage.show();
+    public void returnToGame(final ActionEvent myEvent) throws IOException {
+        myMainMenu.loadGame(myEvent);
     }
 
 }

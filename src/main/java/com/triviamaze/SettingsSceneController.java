@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -39,6 +41,8 @@ public class SettingsSceneController implements Initializable {
     private int myMusicVolume;
     private int myEffectsVolume;
 
+
+
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
         Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
@@ -58,27 +62,30 @@ public class SettingsSceneController implements Initializable {
     @Override
     public void initialize(URL theUrl, ResourceBundle resourceBundle) {
 
+        musicSlider.setValue(myMusicVolume);
         myMusicVolume = (int) musicSlider.getValue();
         musicPercentLabel.setText(myMusicVolume + "%");
-
         myEffectsVolume = (int) effectsSlider.getValue();
         effectsPercentLabel.setText(myEffectsVolume + "%");
 
-        musicSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                myMusicVolume = (int) musicSlider.getValue();
-                musicPercentLabel.setText(myMusicVolume + "%");
-            }
+        musicSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            myMusicVolume = (int) musicSlider.getValue();
+
+            musicPercentLabel.setText(myMusicVolume + "%");
         });
 
-        effectsSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                myEffectsVolume = (int) effectsSlider.getValue();
-                effectsPercentLabel.setText(myEffectsVolume + "%");
-            }
+        effectsSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            myEffectsVolume = (int) effectsSlider.getValue();
+            effectsPercentLabel.setText(myEffectsVolume + "%");
         });
+    }
+
+    MediaPlayer mediaPlayer;
+    public void music(){
+        Media sound = new Media(Objects.requireNonNull(getClass().getResource("sounds/sound.mp3")).toExternalForm());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+        mediaPlayer.setVolume(0.3);
     }
 
     /**

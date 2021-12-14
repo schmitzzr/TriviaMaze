@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="730" prefWidth="1300" stylesheets="@GameScene.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.GameSceneController">
+<VBox prefHeight="730" prefWidth="1300" stylesheets="@GameScene.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triviamaze.GameSceneController">
    <children>
       <Pane fx:id="SceneBackground" prefHeight="730.0" prefWidth="1300.0">
          <children>
@@ -25,12 +19,11 @@
                         <Button fx:id="NorthBridge" disable="true" layoutX="543.0" layoutY="81.0" mnemonicParsing="false" onAction="#NorthClick" prefHeight="106.0" prefWidth="168.0" text="OPEN" visible="false" />
                         <Button fx:id="giveUpButton" layoutX="-11.0" layoutY="-28.0" mnemonicParsing="false" onAction="#giveUp" prefHeight="85.0" prefWidth="85.0" text="Button" />
                      </children></Pane>
-                  <Button fx:id="mainMenu" layoutX="607.0" layoutY="651.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
                   <Button fx:id="helpButton" mnemonicParsing="false" onAction="#helpClicked" prefHeight="85" prefWidth="85" />
                   <Label layoutX="31.0" layoutY="684.0" text="Cheat Code:" textFill="WHITE" />
                   <TextField fx:id="cheatField" layoutX="100.0" layoutY="680.0" onAction="#cheatCode" />
                   <Button fx:id="exitButton" layoutX="856.0" layoutY="635.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="90" prefWidth="90" />
-                  <Button fx:id="settingsButton" layoutX="760.0" layoutY="635.0" mnemonicParsing="false" prefHeight="90" prefWidth="90" />
+                  <Button fx:id="settingsButton" layoutX="856.0" layoutY="532.0" mnemonicParsing="false" prefHeight="90" prefWidth="90" />
                   <Label fx:id="winLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="110.0" prefHeight="513.0" prefWidth="978.0" text="you won" textAlignment="CENTER" visible="false">
                      <font>
                         <Font name="Dead Kansas" size="64.0" />
@@ -78,6 +71,8 @@
                         <Font name="Doppio One Regular" size="16.0" />
                      </font>
                   </Label>
+                  <Button fx:id="muteButton" layoutX="752.0" layoutY="635.0" mnemonicParsing="false" onAction="#muteButtonClicked" prefHeight="90" prefWidth="90" text="MUTE" />
+                  <Button fx:id="mainMenu" layoutX="576.0" layoutY="651.0" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="58.0" prefWidth="139.0" text="Return to Main Menu" />
                </children>
             </Pane>
             <Pane layoutX="951.0" prefHeight="730.0" prefWidth="350.0">

@@ -5,6 +5,7 @@ module com.triviamaze {
     requires org.xerial.sqlitejdbc;
     requires org.junit.jupiter.api;
     requires junit;
+    requires javafx.media;
 
 
     opens com.triviamaze to javafx.fxml;

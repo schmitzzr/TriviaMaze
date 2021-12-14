@@ -62,6 +62,13 @@ public class GameSceneController {
         setTheRoom();
     }
 
+    @FXML
+    private void muteButtonClicked(final ActionEvent event) {
+    }
+
+
+
+
     /**
      * Initializes the bridges for the room.
      * If the player has run out of bridges or has reached the end, a message pops up indicating so.

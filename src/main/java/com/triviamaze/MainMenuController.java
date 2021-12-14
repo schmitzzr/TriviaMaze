@@ -8,11 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
@@ -24,10 +27,16 @@ public class MainMenuController {
     private Scene scene;
     private Parent root;
 
+    SettingsSceneController mySettings = new SettingsSceneController();
+
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
+
+
+
+
 
     public void startGame(final ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
@@ -37,9 +46,13 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
+        mySettings.music();
+
 //        GameSceneController gameSceneController = new GameSceneController();
 //        gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
     }
+
+
 
     public void loadGame(final ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));

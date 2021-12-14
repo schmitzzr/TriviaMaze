@@ -178,6 +178,10 @@ public class GameSceneController {
      */
     @FXML
     private void returnToMainMenu(final ActionEvent event) throws IOException {
+        OutputStream file=new FileOutputStream("status");
+        ObjectOutputStream out=new ObjectOutputStream(file);
+        out.writeObject(this.myMaze);
+        file.close();
         myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         myScene = new Scene(myRoot);
@@ -421,6 +425,5 @@ public class GameSceneController {
         int column = myMaze.getMyCurrentRoom().getMyColumn();
         locationLabel.setText("Row " + row + ", Column " + column);
     }
-
 
 }

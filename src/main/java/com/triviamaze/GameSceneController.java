@@ -35,7 +35,10 @@ public class GameSceneController {
     @FXML
     private TextField typeAnswerTextField, cheatField;
     @FXML
-    private Label winLabel, loseLabel, locationLabel;
+    private transient Label winLabel = new Label(), loseLabel = new Label();
+
+    @FXML
+    private Label locationLabel;
     @FXML
     private Button EastBridge = new Button(),
             NorthBridge = new Button(),

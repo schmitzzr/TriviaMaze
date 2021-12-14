@@ -38,7 +38,12 @@ public class MainMenuController {
 
 
     public void startGame(final ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScene.fxml"));
+        root = loader.load();
+        //root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
+
+        GameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());

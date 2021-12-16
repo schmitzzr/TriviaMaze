@@ -193,4 +193,20 @@ public class Maze implements Serializable {
 		return this.myRooms;//return all the rooms.
 	}
 
+	/**
+	 * Getter for the row of the final room
+	 * @return the end row
+	 */
+	public int getMyEndRow() {
+		return myEndRow;
+	}
+
+	/**
+	 * Getter for the column of the final room
+	 * @return the end column
+	 */
+	public int getMyEndColumn() {
+		return myEndColumn;
+	}
+
 }

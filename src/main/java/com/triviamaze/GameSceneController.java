@@ -44,7 +44,9 @@ public class GameSceneController {
             NorthBridge = new Button(),
             WestBridge = new Button(),
             SouthBridge = new Button();
+
     private static ArrayList<GameSceneController> all= new ArrayList<>();
+
     /** Initializes the trivia database to be used */
     private final Trivia myTrivia = new Trivia("jdbc:sqlite:questions.db", "multipleChoice");
 
@@ -52,6 +54,7 @@ public class GameSceneController {
     private static Maze myMaze = new Maze(4,4,0,0,3,3);
 
     private static MainMenuController myMainMenu = new MainMenuController();
+    private static SettingsSceneController mySettings = new SettingsSceneController();
 
     /** The correct answer to the question */
     private String myAnswer;
@@ -62,7 +65,7 @@ public class GameSceneController {
 
 
     public GameSceneController(){
-        this.setTheRoom();
+        setTheRoom();
         all.add(this);
     }
     /**
@@ -72,6 +75,7 @@ public class GameSceneController {
     @FXML
     public static void setMyMaze(final Maze theMaze) {
         myMaze = theMaze;
+        mySettings.music();
         for (GameSceneController theGameSceneController : all) {
             try {
                 theGameSceneController.setTheRoom();
@@ -86,15 +90,13 @@ public class GameSceneController {
     }
 
 
-
-
     /**
      * Initializes the bridges for the room.
      * If the player has run out of bridges or has reached the end, a message pops up indicating so.
      */
     @FXML
     public void setTheRoom() {
-        if(locationLabel!=null)
+        if (locationLabel != null)
             setLocationLabel();
 
         NorthBridge.setVisible(myMaze.getMyCurrentRoom().getMyBridgeN().getOpenStatus());
@@ -409,7 +411,7 @@ public class GameSceneController {
         switch (cheat) {
             case "NUQU" -> generateQuestion();
             case "WWCD" -> {
-                myMaze.setMyCurrentRoom(3, 3);
+                myMaze.setMyCurrentRoom(myMaze.getMyEndRow(), myMaze.getMyEndColumn());
                 setTheRoom();
             }
             case "GTQR" -> checkAnswer(myAnswer);

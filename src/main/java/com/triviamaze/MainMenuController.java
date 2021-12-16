@@ -26,36 +26,23 @@ public class MainMenuController {
     private Scene scene;
     private Parent root;
 
-    SettingsSceneController mySettings = new SettingsSceneController();
-
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
 
-
-
-
-    public void startGame(final ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScene.fxml"));
+    public void setDifficulty(final ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DifficultyScene.fxml"));
         root = loader.load();
-        //root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
-
-        GameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/GameScene.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/triviamaze/DifficultyScene.css")).toExternalForm());
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
-        mySettings.music();
-
-//        GameSceneController gameSceneController = new GameSceneController();
-//        gameSceneController.setMyMaze(new Maze(4,4,0,0,3,3));
     }
-
 
 
     public void loadGame(final ActionEvent event) throws IOException {
@@ -67,7 +54,8 @@ public class MainMenuController {
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
-        Maze maze=null;
+
+        Maze maze;
         try {
             InputStream file = new FileInputStream("status");
             ObjectInputStream out = new ObjectInputStream(file);

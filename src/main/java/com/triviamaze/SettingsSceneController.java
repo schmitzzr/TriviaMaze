@@ -16,6 +16,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class SettingsSceneController implements Initializable {
 
     private int myMusicVolume;
     private int myEffectsVolume;
+    MediaPlayer mediaPlayer;
 
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
@@ -88,9 +90,11 @@ public class SettingsSceneController implements Initializable {
         });
     }
 
-    MediaPlayer mediaPlayer;
+    /**
+     * Plays the music
+     */
     public void music(){
-        Media sound = new Media(Objects.requireNonNull(getClass().getResource("sounds/sound.mp3")).toExternalForm());
+        Media sound = new Media(Objects.requireNonNull(getClass().getResource("sounds/beach_music.mp3")).toExternalForm());
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
         mediaPlayer.setVolume(0.3);

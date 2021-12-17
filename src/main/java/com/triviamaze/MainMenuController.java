@@ -26,12 +26,20 @@ public class MainMenuController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Exits the program.
+     * @param event exiting the program
+     */
     @FXML
     private void exitButtonClicked(final ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
-
+    /**
+     * Changes scenes to DifficultyScene, where you select the difficulty of a new game.
+     * @param event clicking the "Start a new game" button
+     * @throws IOException in case files are not found
+     */
     public void setDifficulty(final ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DifficultyScene.fxml"));
         root = loader.load();
@@ -44,7 +52,11 @@ public class MainMenuController {
         stage.show();
     }
 
-
+    /**
+     * Changes to the game scene, loading the previous progress.
+     * @param event clicking the "Load previous game" button
+     * @throws IOException in case files are not found
+     */
     public void loadGame(final ActionEvent event) throws IOException {
 
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameScene.fxml")));
@@ -68,6 +80,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Changes to the settings scene.
+     * @param theEvent clicking the settings button
+     * @throws IOException in case files are not found
+     */
     public void settingsButtonClicked(final ActionEvent theEvent) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SettingsScene.fxml")));
         stage = (Stage)((Node)theEvent.getSource()).getScene().getWindow();
@@ -78,6 +95,11 @@ public class MainMenuController {
         stage.show();
     }
 
+    /**
+     * Changes to the help scene.
+     * @param theEvent clicking the help button
+     * @throws IOException in case files are not found
+     */
     public void helpButtonClicked(final ActionEvent theEvent) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpScene.fxml")));
         stage = (Stage)((Node)theEvent.getSource()).getScene().getWindow();
@@ -88,6 +110,11 @@ public class MainMenuController {
         stage.show();
     }
 
+    /**
+     * Changes to the scoreboard scene.
+     * @param theEvent clicking the scoreboard button
+     * @throws IOException in case files are not found
+     */
     public void scoreboardButtonClicked(final ActionEvent theEvent) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ScoreboardScene.fxml")));
         stage = (Stage)((Node)theEvent.getSource()).getScene().getWindow();

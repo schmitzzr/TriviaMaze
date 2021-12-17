@@ -47,6 +47,11 @@ public class SettingsSceneController implements Initializable {
     private int myEffectsVolume;
     MediaPlayer mediaPlayer;
 
+    /**
+     * Returns to the main menu.
+     * @param event clicking the main menu button
+     * @throws IOException in case the files are not found
+     */
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
         Parent myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
@@ -58,6 +63,11 @@ public class SettingsSceneController implements Initializable {
         myStage.show();
     }
 
+    /**
+     * Returns to the game.
+     * @param myEvent clicking the "Return to the game" button
+     * @throws IOException in case file is not found
+     */
     @FXML
     private void returnToTheGame(final ActionEvent myEvent) throws IOException {
         MainMenuController myMainMenu = new MainMenuController();

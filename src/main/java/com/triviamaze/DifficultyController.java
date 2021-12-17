@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the DifficultyScene.
+ */
 public class DifficultyController implements Initializable {
 
     @FXML
@@ -29,19 +32,32 @@ public class DifficultyController implements Initializable {
     private final String[] myDiffs = {"Easy (4 x 4)", "Medium (5 x 5)", "Hard (6 x 6)"};
     private String myDifficulty;
 
+    /**
+     * Initializes the combo box
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
         difficultyBox.getItems().addAll(myDiffs);
         difficultyBox.setOnAction(this::getDifficulties);
 
     }
 
+    /**
+     * Sets field with selected difficulty from combo box and enables the start button.
+     * @param event selecting a difficulty from the combo box menu
+     */
     private void getDifficulties(ActionEvent event) {
         myDifficulty = difficultyBox.getValue();
         startButton.setDisable(false);
     }
 
+    /**
+     * Starts a new game with the desired difficulty settings.
+     * @param event clicking the "START GAME" button
+     * @throws IOException in case files are not found
+     */
     public void startGame(final ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScene.fxml"));
         Parent root = loader.load();

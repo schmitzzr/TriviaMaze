@@ -35,7 +35,7 @@ public class GameSceneController {
     @FXML
     private TextField typeAnswerTextField, cheatField;
     @FXML
-    private transient Label winLabel = new Label(), loseLabel = new Label();
+    private Label winLabel = new Label(), loseLabel = new Label();
 
     @FXML
     private Label locationLabel;
@@ -171,10 +171,7 @@ public class GameSceneController {
      */
     @FXML
     private void exitButtonClicked(final ActionEvent event) throws IOException {
-        OutputStream file=new FileOutputStream("status");
-        ObjectOutputStream out=new ObjectOutputStream(file);
-        out.writeObject(myMaze);
-        file.close();
+        save();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
@@ -185,10 +182,7 @@ public class GameSceneController {
      */
     @FXML
     public void returnToMainMenu(final ActionEvent event) throws IOException {
-        OutputStream file=new FileOutputStream("status");
-        ObjectOutputStream out=new ObjectOutputStream(file);
-        out.writeObject(myMaze);
-        file.close();
+        save();
         myRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         myStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         myScene = new Scene(myRoot);
@@ -198,21 +192,36 @@ public class GameSceneController {
         myStage.show();
     }
 
-    @FXML
-    private void helpClicked(final ActionEvent myEvent) throws IOException {
+    /**
+     * Saves the progress of the game
+     * @throws IOException in case file does not exist
+     */
+    private void save() throws IOException {
         OutputStream file=new FileOutputStream("status");
         ObjectOutputStream out=new ObjectOutputStream(file);
         out.writeObject(myMaze);
         file.close();
+    }
+
+    /**
+     * Takes you to the help screen.
+     * @param myEvent clicking the help button
+     * @throws IOException in case file does not exist
+     */
+    @FXML
+    private void helpClicked(final ActionEvent myEvent) throws IOException {
+        save();
         myMainMenu.helpButtonClicked(myEvent);
     }
 
+    /**
+     * Takes you to the settings screen.
+     * @param myEvent clicking the settings button
+     * @throws IOException in case the file does not exist
+     */
     @FXML
     private void settingsClicked(final ActionEvent myEvent) throws IOException {
-        OutputStream file=new FileOutputStream("status");
-        ObjectOutputStream out=new ObjectOutputStream(file);
-        out.writeObject(myMaze);
-        file.close();
+        save();
         myMainMenu.settingsButtonClicked(myEvent);
     }
 
@@ -424,6 +433,9 @@ public class GameSceneController {
         cheatField.setText("");
     }
 
+    /**
+     * Loses the game.
+     */
     @FXML
     private void giveUp() {
         myMaze.getMyCurrentRoom().setBridgeStatus(Direction.NORTH, false);
@@ -433,6 +445,9 @@ public class GameSceneController {
         setTheRoom();
     }
 
+    /**
+     * Sets the location label based on the current room.
+     */
     @FXML
     private void setLocationLabel() {
         int row = myMaze.getMyCurrentRoom().getMyRow();
